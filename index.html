@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fragly — Discover, Compare & Collect Fragrances</title>
+    <meta name="description" content="Fragly is the perfumery app that helps you discover fragrances, compare prices from authorized retailers, and build your personal collection.">
+    <meta name="theme-color" content="#0d0d1a">
+    <link rel="canonical" href="https://fragly.app">
+    <meta property="og:title" content="Fragly — Your Perfumery Companion">
+    <meta property="og:description" content="Discover fragrances, compare prices, and learn about perfumery.">
+    <meta property="og:url" content="https://fragly.app">
+    <meta property="og:type" content="website">
+    <style>
+        :root {
+            --bg-primary: #0d0d1a;
+            --bg-card: rgba(255, 255, 255, 0.04);
+            --bg-card-hover: rgba(255, 255, 255, 0.07);
+            --border-subtle: rgba(255, 255, 255, 0.08);
+            --text-primary: #ffffff;
+            --text-secondary: rgba(255, 255, 255, 0.6);
+            --accent: #FF9500;
+            --accent-amber: #E07800;
+            --accent-soft: rgba(255, 149, 0, 0.15);
+            --radius: 16px;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* -- NAV -- */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 100;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            background: rgba(13, 13, 26, 0.8);
+            border-bottom: 1px solid var(--border-subtle);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            color: var(--text-primary);
+            text-decoration: none;
+        }
+
+        .logo span { color: var(--accent); }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover { color: var(--text-primary); }
+
+        .lang-toggle {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: 8px;
+            padding: 0.35rem 0.75rem;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .lang-toggle:hover {
+            background: var(--bg-card-hover);
+            color: var(--text-primary);
+        }
+
+        /* -- HERO -- */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 8rem 2rem 4rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(255, 149, 0, 0.08) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            background: var(--accent-soft);
+            border: 1px solid rgba(255, 149, 0, 0.2);
+            border-radius: 100px;
+            padding: 0.4rem 1.2rem;
+            font-size: 0.85rem;
+            color: var(--accent);
+            margin-bottom: 2rem;
+            letter-spacing: 0.02em;
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            max-width: 700px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            color: var(--accent);
+        }
+
+        .hero p {
+            font-size: 1.15rem;
+            color: var(--text-secondary);
+            max-width: 520px;
+            margin-bottom: 2.5rem;
+            line-height: 1.7;
+        }
+
+        .app-store-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            background: linear-gradient(135deg, var(--accent), var(--accent-amber));
+            color: #ffffff;
+            padding: 0.85rem 1.8rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .app-store-badge:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
+        .app-store-badge svg {
+            width: 22px;
+            height: 22px;
+        }
+
+        /* -- FEATURES -- */
+        .features {
+            padding: 6rem 2rem;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.85rem;
+            color: var(--accent);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            margin-bottom: 3rem;
+            max-width: 500px;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .feature-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            border-radius: var(--radius);
+            padding: 2rem;
+            transition: background 0.2s, border-color 0.2s;
+        }
+
+        .feature-card:hover {
+            background: var(--bg-card-hover);
+            border-color: rgba(255, 149, 0, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-card h3 {
+            font-size: 1.1rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .feature-card p {
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        /* -- ABOUT -- */
+        .about {
+            padding: 6rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .about p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* -- FOOTER -- */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--border-subtle);
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .footer-brand {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .footer-brand span { color: var(--accent); }
+
+        .footer-brand p {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover { color: var(--text-primary); }
+
+        .footer-copy {
+            width: 100%;
+            text-align: center;
+            padding-top: 2rem;
+            margin-top: 1rem;
+            border-top: 1px solid var(--border-subtle);
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        /* -- LEGAL PAGES -- */
+        .legal {
+            display: none;
+            padding: 8rem 2rem 4rem;
+            max-width: 750px;
+            margin: 0 auto;
+        }
+
+        .legal.active { display: block; }
+
+        .legal h1 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .legal .last-updated {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin-bottom: 2.5rem;
+        }
+
+        .legal h2 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-top: 2rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .legal p, .legal li {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .legal ul {
+            padding-left: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .legal a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .legal a:hover { text-decoration: underline; }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--accent);
+            text-decoration: none;
+            font-size: 0.9rem;
+            margin-bottom: 2rem;
+        }
+
+        .back-link:hover { text-decoration: underline; }
+
+        /* -- RESPONSIVE -- */
+        @media (max-width: 640px) {
+            nav { padding: 1rem; }
+            .nav-links { gap: 1rem; }
+            .nav-links a { font-size: 0.8rem; }
+            .features-grid { grid-template-columns: 1fr; }
+            .footer-content { flex-direction: column; align-items: center; text-align: center; }
+            .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+    <a href="#" class="logo" onclick="showPage('home')">Fragl<span>y</span></a>
+    <ul class="nav-links">
+        <li><a href="#features" data-i18n="nav_features">Funcionalidades</a></li>
+        <li><a href="#about" data-i18n="nav_about">Acerca de</a></li>
+        <li><button class="lang-toggle" onclick="toggleLang()" id="langBtn">EN</button></li>
+    </ul>
+</nav>
+
+<!-- HOME PAGE -->
+<div id="page-home">
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="hero-badge" data-i18n="hero_badge">Disponible pronto en App Store</div>
+        <h1 data-i18n="hero_title">Descubre tu <em>fragancia</em> perfecta</h1>
+        <p data-i18n="hero_subtitle">Reconoce perfumes, compara precios en tiendas autorizadas y construye tu coleccion olfativa personal.</p>
+        <a href="#" class="app-store-badge" data-i18n="hero_cta">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+            Pronto en App Store
+        </a>
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+        <div class="section-label" data-i18n="features_label">Funcionalidades</div>
+        <h2 class="section-title" data-i18n="features_title">Todo lo que necesitas en una app</h2>
+        <div class="features-grid">
+            <div class="feature-card">
+                <div class="feature-icon">📷</div>
+                <h3 data-i18n="f1_title">Reconocimiento visual</h3>
+                <p data-i18n="f1_desc">Apunta tu camara a cualquier botella de perfume y obtendras toda la informacion al instante.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">💰</div>
+                <h3 data-i18n="f2_title">Comparador de precios</h3>
+                <p data-i18n="f2_desc">Compara precios en tiempo real de tiendas autorizadas como Douglas, Sephora, El Corte Ingles y mas.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">📚</div>
+                <h3 data-i18n="f3_title">Tu coleccion personal</h3>
+                <p data-i18n="f3_desc">Organiza tu coleccion, lleva un diario olfativo y comparte tus descubrimientos.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🎯</div>
+                <h3 data-i18n="f4_title">Aprende jugando</h3>
+                <p data-i18n="f4_desc">Quiz diario, retos semanales, insignias y niveles para aprender sobre perfumeria de forma divertida.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🔔</div>
+                <h3 data-i18n="f5_title">Alertas de precio</h3>
+                <p data-i18n="f5_desc">Configura alertas y te avisamos cuando tu perfume favorito baje de precio en cualquier tienda.</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">🌍</div>
+                <h3 data-i18n="f6_title">213.000+ fragancias</h3>
+                <p data-i18n="f6_desc">La base de datos mas completa con notas olfativas, resenas de la comunidad y puntuaciones detalladas.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+        <div class="section-label" data-i18n="about_label">Acerca de Fragly</div>
+        <h2 class="section-title" data-i18n="about_title">Perfumeria para todos</h2>
+        <p data-i18n="about_p1">Fragly nace con la mision de hacer el mundo de la perfumeria accesible a todo el mundo. Creemos que descubrir fragancias deberia ser una experiencia facil, informada y divertida.</p>
+        <p data-i18n="about_p2">Nuestra app conecta a los amantes de los perfumes con las mejores tiendas autorizadas, ofreciendo comparativas de precios transparentes y una comunidad donde compartir opiniones y descubrimientos.</p>
+        <p data-i18n="about_p3">Con tecnologia de reconocimiento visual, una base de datos de mas de 213.000 fragancias y un sistema de gamificacion unico, Fragly transforma la forma en que descubres y coleccionas perfumes.</p>
+    </section>
+
+</div>
+
+<!-- PRIVACY POLICY PAGE -->
+<div id="page-privacy" class="legal">
+    <a href="#" class="back-link" onclick="showPage('home')">← <span data-i18n="back_home">Volver al inicio</span></a>
+    <h1 data-i18n="privacy_title">Politica de Privacidad</h1>
+    <p class="last-updated" data-i18n="privacy_updated">Ultima actualizacion: 27 de febrero de 2026</p>
+
+    <h2 data-i18n="priv_1_h">1. Informacion que recopilamos</h2>
+    <p data-i18n="priv_1_p">Fragly recopila la minima informacion necesaria para ofrecer el servicio:</p>
+    <ul>
+        <li data-i18n="priv_1_li1"><strong>Datos de cuenta:</strong> Identificador anonimo de Sign in with Apple. No almacenamos tu email real ni contrasenas.</li>
+        <li data-i18n="priv_1_li2"><strong>Datos de uso:</strong> Tu coleccion de perfumes, resenas, puntuaciones de quiz y preferencias de la app, almacenados en tu dispositivo y en nuestros servidores para sincronizacion.</li>
+        <li data-i18n="priv_1_li3"><strong>Imagenes de camara:</strong> Las imagenes capturadas para reconocimiento visual se procesan en el dispositivo y no se envian a nuestros servidores.</li>
+    </ul>
+
+    <h2 data-i18n="priv_2_h">2. Como usamos tu informacion</h2>
+    <p data-i18n="priv_2_p">Usamos tus datos exclusivamente para:</p>
+    <ul>
+        <li data-i18n="priv_2_li1">Ofrecer y mejorar las funcionalidades de la app</li>
+        <li data-i18n="priv_2_li2">Sincronizar tu coleccion y progreso entre dispositivos</li>
+        <li data-i18n="priv_2_li3">Enviarte alertas de precio que hayas configurado</li>
+    </ul>
+
+    <h2 data-i18n="priv_3_h">3. Enlaces de afiliado</h2>
+    <p data-i18n="priv_3_p">Fragly incluye enlaces a tiendas autorizadas (Douglas, Sephora, El Corte Ingles, Lookfantastic, Perfumes Club, Amazon, Notino) a traves de programas de afiliados. Cuando compras a traves de estos enlaces, podemos recibir una comision sin coste adicional para ti. Estos enlaces estan claramente identificados en la app.</p>
+
+    <h2 data-i18n="priv_4_h">4. Comparticion de datos</h2>
+    <p data-i18n="priv_4_p">No vendemos, alquilamos ni compartimos tu informacion personal con terceros. Los unicos datos compartidos son los necesarios para procesar compras a traves de enlaces de afiliado, gestionados directamente por las tiendas.</p>
+
+    <h2 data-i18n="priv_5_h">5. Almacenamiento y seguridad</h2>
+    <p data-i18n="priv_5_p">Tus datos se almacenan de forma segura con cifrado en transito y en reposo. Las credenciales de autenticacion se gestionan a traves de Sign in with Apple y Passkeys (WebAuthn), sin que almacenemos contrasenas.</p>
+
+    <h2 data-i18n="priv_6_h">6. Tus derechos</h2>
+    <p data-i18n="priv_6_p">Puedes solicitar la eliminacion de tu cuenta y todos los datos asociados en cualquier momento desde los ajustes de la app o contactandonos en <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>.</p>
+
+    <h2 data-i18n="priv_7_h">7. Contacto</h2>
+    <p data-i18n="priv_7_p">Para cualquier consulta sobre privacidad: <a href="mailto:privacy@fragly.app">privacy@fragly.app</a></p>
+</div>
+
+<!-- TERMS OF SERVICE PAGE -->
+<div id="page-terms" class="legal">
+    <a href="#" class="back-link" onclick="showPage('home')">← <span data-i18n="back_home">Volver al inicio</span></a>
+    <h1 data-i18n="terms_title">Terminos de Uso</h1>
+    <p class="last-updated" data-i18n="terms_updated">Ultima actualizacion: 27 de febrero de 2026</p>
+
+    <h2 data-i18n="terms_1_h">1. Aceptacion de los terminos</h2>
+    <p data-i18n="terms_1_p">Al usar Fragly, aceptas estos terminos de uso. Si no estas de acuerdo, no utilices la app.</p>
+
+    <h2 data-i18n="terms_2_h">2. Descripcion del servicio</h2>
+    <p data-i18n="terms_2_p">Fragly es una plataforma de descubrimiento de fragancias que ofrece reconocimiento visual de perfumes, comparacion de precios, gestion de colecciones personales y contenido educativo sobre perfumeria.</p>
+
+    <h2 data-i18n="terms_3_h">3. Precios y enlaces de compra</h2>
+    <p data-i18n="terms_3_p">Los precios mostrados en Fragly provienen de tiendas autorizadas y pueden variar. Fragly no vende productos directamente. Las compras se realizan en las tiendas correspondientes bajo sus propios terminos y condiciones. Fragly puede recibir comisiones por compras realizadas a traves de enlaces de afiliado.</p>
+
+    <h2 data-i18n="terms_4_h">4. Contenido del usuario</h2>
+    <p data-i18n="terms_4_p">Eres responsable del contenido que publiques (resenas, puntuaciones). Nos reservamos el derecho de moderar contenido que sea ofensivo, spam o viole los derechos de otros.</p>
+
+    <h2 data-i18n="terms_5_h">5. Propiedad intelectual</h2>
+    <p data-i18n="terms_5_p">Las marcas de perfumes, imagenes de productos y nombres comerciales pertenecen a sus respectivos propietarios. Fragly los utiliza con fines informativos y de comparacion de precios.</p>
+
+    <h2 data-i18n="terms_6_h">6. Limitacion de responsabilidad</h2>
+    <p data-i18n="terms_6_p">Fragly se ofrece "tal cual". No garantizamos la exactitud de los precios en todo momento ni la disponibilidad continua del servicio.</p>
+
+    <h2 data-i18n="terms_7_h">7. Contacto</h2>
+    <p data-i18n="terms_7_p">Para consultas sobre estos terminos: <a href="mailto:legal@fragly.app">legal@fragly.app</a></p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-content">
+        <div class="footer-brand">
+            Fragl<span>y</span>
+            <p data-i18n="footer_tagline">Perfumeria inteligente</p>
+        </div>
+        <ul class="footer-links">
+            <li><a href="#" onclick="showPage('privacy')" data-i18n="footer_privacy">Privacidad</a></li>
+            <li><a href="#" onclick="showPage('terms')" data-i18n="footer_terms">Terminos de uso</a></li>
+            <li><a href="mailto:hello@fragly.app" data-i18n="footer_contact">Contacto</a></li>
+        </ul>
+    </div>
+    <div class="footer-copy">&copy; 2026 Fragly. All rights reserved.</div>
+</footer>
+
+<script>
+// -- i18n --
+const translations = {
+    es: {
+        nav_features: "Funcionalidades",
+        nav_about: "Acerca de",
+        hero_badge: "Disponible pronto en App Store",
+        hero_title: 'Descubre tu <em>fragancia</em> perfecta',
+        hero_subtitle: "Reconoce perfumes, compara precios en tiendas autorizadas y construye tu coleccion olfativa personal.",
+        hero_cta: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> Pronto en App Store',
+        features_label: "Funcionalidades",
+        features_title: "Todo lo que necesitas en una app",
+        f1_title: "Reconocimiento visual",
+        f1_desc: "Apunta tu camara a cualquier botella de perfume y obtendras toda la informacion al instante.",
+        f2_title: "Comparador de precios",
+        f2_desc: "Compara precios en tiempo real de tiendas autorizadas como Douglas, Sephora, El Corte Ingles y mas.",
+        f3_title: "Tu coleccion personal",
+        f3_desc: "Organiza tu coleccion, lleva un diario olfativo y comparte tus descubrimientos.",
+        f4_title: "Aprende jugando",
+        f4_desc: "Quiz diario, retos semanales, insignias y niveles para aprender sobre perfumeria de forma divertida.",
+        f5_title: "Alertas de precio",
+        f5_desc: "Configura alertas y te avisamos cuando tu perfume favorito baje de precio en cualquier tienda.",
+        f6_title: "213.000+ fragancias",
+        f6_desc: "La base de datos mas completa con notas olfativas, resenas de la comunidad y puntuaciones detalladas.",
+        about_label: "Acerca de Fragly",
+        about_title: "Perfumeria para todos",
+        about_p1: "Fragly nace con la mision de hacer el mundo de la perfumeria accesible a todo el mundo. Creemos que descubrir fragancias deberia ser una experiencia facil, informada y divertida.",
+        about_p2: "Nuestra app conecta a los amantes de los perfumes con las mejores tiendas autorizadas, ofreciendo comparativas de precios transparentes y una comunidad donde compartir opiniones y descubrimientos.",
+        about_p3: "Con tecnologia de reconocimiento visual, una base de datos de mas de 213.000 fragancias y un sistema de gamificacion unico, Fragly transforma la forma en que descubres y coleccionas perfumes.",
+        footer_tagline: "Perfumeria inteligente",
+        footer_privacy: "Privacidad",
+        footer_terms: "Terminos de uso",
+        footer_contact: "Contacto",
+        back_home: "Volver al inicio",
+        privacy_title: "Politica de Privacidad",
+        privacy_updated: "Ultima actualizacion: 27 de febrero de 2026",
+        priv_1_h: "1. Informacion que recopilamos",
+        priv_1_p: "Fragly recopila la minima informacion necesaria para ofrecer el servicio:",
+        priv_1_li1: "<strong>Datos de cuenta:</strong> Identificador anonimo de Sign in with Apple. No almacenamos tu email real ni contrasenas.",
+        priv_1_li2: "<strong>Datos de uso:</strong> Tu coleccion de perfumes, resenas, puntuaciones de quiz y preferencias de la app.",
+        priv_1_li3: "<strong>Imagenes de camara:</strong> Las imagenes capturadas para reconocimiento visual se procesan en el dispositivo y no se envian a nuestros servidores.",
+        priv_2_h: "2. Como usamos tu informacion",
+        priv_2_p: "Usamos tus datos exclusivamente para:",
+        priv_2_li1: "Ofrecer y mejorar las funcionalidades de la app",
+        priv_2_li2: "Sincronizar tu coleccion y progreso entre dispositivos",
+        priv_2_li3: "Enviarte alertas de precio que hayas configurado",
+        priv_3_h: "3. Enlaces de afiliado",
+        priv_3_p: "Fragly incluye enlaces a tiendas autorizadas (Douglas, Sephora, El Corte Ingles, Lookfantastic, Perfumes Club, Amazon, Notino) a traves de programas de afiliados. Cuando compras a traves de estos enlaces, podemos recibir una comision sin coste adicional para ti.",
+        priv_4_h: "4. Comparticion de datos",
+        priv_4_p: "No vendemos, alquilamos ni compartimos tu informacion personal con terceros.",
+        priv_5_h: "5. Almacenamiento y seguridad",
+        priv_5_p: "Tus datos se almacenan de forma segura con cifrado en transito y en reposo.",
+        priv_6_h: "6. Tus derechos",
+        priv_6_p: 'Puedes solicitar la eliminacion de tu cuenta y todos los datos asociados en cualquier momento desde los ajustes de la app o contactandonos en <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>.',
+        priv_7_h: "7. Contacto",
+        priv_7_p: 'Para cualquier consulta sobre privacidad: <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>',
+        terms_title: "Terminos de Uso",
+        terms_updated: "Ultima actualizacion: 27 de febrero de 2026",
+        terms_1_h: "1. Aceptacion de los terminos",
+        terms_1_p: "Al usar Fragly, aceptas estos terminos de uso. Si no estas de acuerdo, no utilices la app.",
+        terms_2_h: "2. Descripcion del servicio",
+        terms_2_p: "Fragly es una plataforma de descubrimiento de fragancias que ofrece reconocimiento visual de perfumes, comparacion de precios, gestion de colecciones personales y contenido educativo sobre perfumeria.",
+        terms_3_h: "3. Precios y enlaces de compra",
+        terms_3_p: "Los precios mostrados en Fragly provienen de tiendas autorizadas y pueden variar. Fragly no vende productos directamente. Las compras se realizan en las tiendas correspondientes bajo sus propios terminos y condiciones.",
+        terms_4_h: "4. Contenido del usuario",
+        terms_4_p: "Eres responsable del contenido que publiques (resenas, puntuaciones). Nos reservamos el derecho de moderar contenido que sea ofensivo, spam o viole los derechos de otros.",
+        terms_5_h: "5. Propiedad intelectual",
+        terms_5_p: "Las marcas de perfumes, imagenes de productos y nombres comerciales pertenecen a sus respectivos propietarios.",
+        terms_6_h: "6. Limitacion de responsabilidad",
+        terms_6_p: 'Fragly se ofrece "tal cual". No garantizamos la exactitud de los precios en todo momento ni la disponibilidad continua del servicio.',
+        terms_7_h: "7. Contacto",
+        terms_7_p: 'Para consultas sobre estos terminos: <a href="mailto:legal@fragly.app">legal@fragly.app</a>'
+    },
+    en: {
+        nav_features: "Features",
+        nav_about: "About",
+        hero_badge: "Coming soon to the App Store",
+        hero_title: 'Discover your perfect <em>fragrance</em>',
+        hero_subtitle: "Recognize perfumes, compare prices from authorized retailers, and build your personal scent collection.",
+        hero_cta: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> Coming to App Store',
+        features_label: "Features",
+        features_title: "Everything you need in one app",
+        f1_title: "Visual recognition",
+        f1_desc: "Point your camera at any perfume bottle and get all the information instantly.",
+        f2_title: "Price comparison",
+        f2_desc: "Compare real-time prices from authorized retailers like Douglas, Sephora, El Corte Ingles, and more.",
+        f3_title: "Your personal collection",
+        f3_desc: "Organize your collection, keep a scent diary, and share your discoveries.",
+        f4_title: "Learn by playing",
+        f4_desc: "Daily quizzes, weekly challenges, badges, and levels to learn about perfumery in a fun way.",
+        f5_title: "Price alerts",
+        f5_desc: "Set alerts and we will notify you when your favorite perfume drops in price at any store.",
+        f6_title: "213,000+ fragrances",
+        f6_desc: "The most comprehensive database with scent notes, community reviews, and detailed ratings.",
+        about_label: "About Fragly",
+        about_title: "Perfumery for everyone",
+        about_p1: "Fragly was born with the mission of making the world of perfumery accessible to everyone. We believe discovering fragrances should be an easy, informed, and enjoyable experience.",
+        about_p2: "Our app connects fragrance lovers with the best authorized retailers, offering transparent price comparisons and a community to share opinions and discoveries.",
+        about_p3: "With visual recognition technology, a database of over 213,000 fragrances, and a unique gamification system, Fragly transforms the way you discover and collect perfumes.",
+        footer_tagline: "Smart perfumery",
+        footer_privacy: "Privacy",
+        footer_terms: "Terms of Use",
+        footer_contact: "Contact",
+        back_home: "Back to home",
+        privacy_title: "Privacy Policy",
+        privacy_updated: "Last updated: February 27, 2026",
+        priv_1_h: "1. Information we collect",
+        priv_1_p: "Fragly collects the minimum information necessary to provide the service:",
+        priv_1_li1: "<strong>Account data:</strong> Anonymous identifier from Sign in with Apple. We do not store your real email or passwords.",
+        priv_1_li2: "<strong>Usage data:</strong> Your perfume collection, reviews, quiz scores, and app preferences.",
+        priv_1_li3: "<strong>Camera images:</strong> Images captured for visual recognition are processed on-device and are not sent to our servers.",
+        priv_2_h: "2. How we use your information",
+        priv_2_p: "We use your data exclusively to:",
+        priv_2_li1: "Provide and improve app features",
+        priv_2_li2: "Sync your collection and progress across devices",
+        priv_2_li3: "Send you price alerts you have configured",
+        priv_3_h: "3. Affiliate links",
+        priv_3_p: "Fragly includes links to authorized retailers (Douglas, Sephora, El Corte Ingles, Lookfantastic, Perfumes Club, Amazon, Notino) through affiliate programs. When you purchase through these links, we may receive a commission at no additional cost to you.",
+        priv_4_h: "4. Data sharing",
+        priv_4_p: "We do not sell, rent, or share your personal information with third parties.",
+        priv_5_h: "5. Storage and security",
+        priv_5_p: "Your data is stored securely with encryption in transit and at rest.",
+        priv_6_h: "6. Your rights",
+        priv_6_p: 'You can request deletion of your account and all associated data at any time from the app settings or by contacting us at <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>.',
+        priv_7_h: "7. Contact",
+        priv_7_p: 'For any privacy inquiries: <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>',
+        terms_title: "Terms of Use",
+        terms_updated: "Last updated: February 27, 2026",
+        terms_1_h: "1. Acceptance of terms",
+        terms_1_p: "By using Fragly, you accept these terms of use. If you disagree, do not use the app.",
+        terms_2_h: "2. Service description",
+        terms_2_p: "Fragly is a fragrance discovery platform offering visual perfume recognition, price comparison, personal collection management, and educational content about perfumery.",
+        terms_3_h: "3. Prices and purchase links",
+        terms_3_p: "Prices shown in Fragly come from authorized retailers and may vary. Fragly does not sell products directly. Purchases are made at the respective stores under their own terms and conditions.",
+        terms_4_h: "4. User content",
+        terms_4_p: "You are responsible for content you publish (reviews, ratings). We reserve the right to moderate content that is offensive, spam, or violates the rights of others.",
+        terms_5_h: "5. Intellectual property",
+        terms_5_p: "Perfume brands, product images, and trade names belong to their respective owners.",
+        terms_6_h: "6. Limitation of liability",
+        terms_6_p: 'Fragly is provided "as is". We do not guarantee the accuracy of prices at all times or continuous availability of the service.',
+        terms_7_h: "7. Contact",
+        terms_7_p: 'For inquiries about these terms: <a href="mailto:legal@fragly.app">legal@fragly.app</a>'
+    }
+};
+
+let currentLang = 'es';
+
+function toggleLang() {
+    currentLang = currentLang === 'es' ? 'en' : 'es';
+    document.getElementById('langBtn').textContent = currentLang === 'es' ? 'EN' : 'ES';
+    document.documentElement.lang = currentLang;
+    applyTranslations();
+}
+
+function applyTranslations() {
+    const t = translations[currentLang];
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.getAttribute('data-i18n');
+        if (t[key]) el.innerHTML = t[key];
+    });
+}
+
+function showPage(page) {
+    document.getElementById('page-home').style.display = page === 'home' ? 'block' : 'none';
+    document.getElementById('page-privacy').className = page === 'privacy' ? 'legal active' : 'legal';
+    document.getElementById('page-terms').className = page === 'terms' ? 'legal active' : 'legal';
+    window.scrollTo(0, 0);
+}
+</script>
+
+</body>
+</html>
