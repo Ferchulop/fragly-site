@@ -249,6 +249,38 @@
             margin-bottom: 1.5rem;
         }
 
+        /* -- PERFUMERIA CTA -- */
+        .perfumeria-cta {
+            padding: 6rem 2rem;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .perfumeria-cta p {
+            color: var(--text-secondary);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 2rem;
+        }
+
+        .perfumeria-btn {
+            display: inline-block;
+            background: linear-gradient(135deg, var(--accent), var(--accent-amber));
+            color: #ffffff;
+            padding: 0.85rem 2rem;
+            border-radius: 12px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: transform 0.2s, opacity 0.2s;
+        }
+
+        .perfumeria-btn:hover {
+            transform: scale(1.03);
+            opacity: 0.9;
+        }
+
         /* -- FOOTER -- */
         footer {
             padding: 3rem 2rem;
@@ -392,8 +424,8 @@
     <!-- HERO -->
     <section class="hero">
         <div class="hero-badge" data-i18n="hero_badge">Disponible pronto en App Store</div>
-        <h1 data-i18n="hero_title">Descubre tu <em>fragancia</em> perfecta</h1>
-        <p data-i18n="hero_subtitle">Reconoce perfumes, compara precios en tiendas autorizadas y construye tu coleccion olfativa personal.</p>
+        <h1 data-i18n="hero_title">Apunta al frasco. <em>Descubre</em> el perfume.</h1>
+        <p data-i18n="hero_subtitle">Mas de 213.000 fragancias. Reconocimiento visual, precios en tiendas autorizadas y una comunidad de amantes del perfume.</p>
         <a href="#" class="app-store-badge" data-i18n="hero_cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             Pronto en App Store
@@ -412,8 +444,8 @@
             </div>
             <div class="feature-card">
                 <div class="feature-icon">💰</div>
-                <h3 data-i18n="f2_title">Comparador de precios</h3>
-                <p data-i18n="f2_desc">Compara precios en tiempo real de tiendas autorizadas.</p>
+                <h3 data-i18n="f2_title">Donde comprarlo</h3>
+                <p data-i18n="f2_desc">Encuentra perfumerias autorizadas cerca de ti y compara precios para conseguir el mejor precio.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📚</div>
@@ -442,9 +474,16 @@
     <section class="about" id="about">
         <div class="section-label" data-i18n="about_label">Acerca de Fragly</div>
         <h2 class="section-title" data-i18n="about_title">Perfumeria para todos</h2>
-        <p data-i18n="about_p1">Fragly nace con la mision de hacer el mundo de la perfumeria accesible a todo el mundo. Creemos que descubrir fragancias deberia ser una experiencia facil, informada y divertida.</p>
-        <p data-i18n="about_p2">Nuestra app conecta a los amantes de los perfumes con las mejores tiendas autorizadas, ofreciendo comparativas de precios transparentes y una comunidad donde compartir opiniones y descubrimientos.</p>
-        <p data-i18n="about_p3">Con tecnologia de reconocimiento visual, una base de datos de mas de 213.000 fragancias y un sistema de gamificacion unico, Fragly transforma la forma en que descubres y coleccionas perfumes.</p>
+        <p data-i18n="about_p1">Fragly nace de una idea simple: descubrir perfumes deberia ser tan facil como apuntar con el movil. Usamos reconocimiento visual, una base de datos de mas de 213.000 fragancias y precios en tiempo real de tiendas autorizadas para que tomes la mejor decision antes de comprar.</p>
+        <p data-i18n="about_p2">Estamos construyendo Fragly en abierto — desde la arquitectura tecnica hasta el modelo de negocio. Si te interesa la perfumeria, la tecnologia o ambas, unete a la comunidad y ayudanos a crear la app que el mundo de las fragancias se merece.</p>
+    </section>
+
+    <!-- PERFUMERIA CTA -->
+    <section class="perfumeria-cta" id="perfumeria">
+        <div class="section-label" data-i18n="perfumeria_label">Para profesionales</div>
+        <h2 class="section-title" data-i18n="perfumeria_title">Tienes una perfumeria?</h2>
+        <p data-i18n="perfumeria_desc">Queremos trabajar contigo. Fragly conecta a miles de usuarios con perfumerias autorizadas. Si tienes un punto de venta y quieres aparecer en nuestra app, hablemos.</p>
+        <a href="mailto:hello@fragly.app" class="perfumeria-btn" data-i18n="perfumeria_cta">Escribenos</a>
     </section>
 
 </div>
@@ -538,15 +577,15 @@ const translations = {
         nav_features: "Funcionalidades",
         nav_about: "Acerca de",
         hero_badge: "Disponible pronto en App Store",
-        hero_title: 'Descubre tu <em>fragancia</em> perfecta',
-        hero_subtitle: "Reconoce perfumes, compara precios en tiendas autorizadas y construye tu coleccion olfativa personal.",
+        hero_title: 'Apunta al frasco. <em>Descubre</em> el perfume.',
+        hero_subtitle: "Mas de 213.000 fragancias. Reconocimiento visual, precios en tiendas autorizadas y una comunidad de amantes del perfume.",
         hero_cta: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> Pronto en App Store',
         features_label: "Funcionalidades",
         features_title: "Todo lo que necesitas en una app",
         f1_title: "Reconocimiento visual",
         f1_desc: "Apunta tu camara a cualquier botella de perfume y obtendras toda la informacion al instante.",
-        f2_title: "Comparador de precios",
-        f2_desc: "Compara precios en tiempo real de tiendas autorizadas.",
+        f2_title: "Donde comprarlo",
+        f2_desc: "Encuentra perfumerias autorizadas cerca de ti y compara precios para conseguir el mejor precio.",
         f3_title: "Tu coleccion personal",
         f3_desc: "Organiza tu coleccion, lleva un diario olfativo y comparte tus descubrimientos.",
         f4_title: "Aprende jugando",
@@ -557,9 +596,12 @@ const translations = {
         f6_desc: "La base de datos mas completa con notas olfativas, resenas de la comunidad y puntuaciones detalladas.",
         about_label: "Acerca de Fragly",
         about_title: "Perfumeria para todos",
-        about_p1: "Fragly nace con la mision de hacer el mundo de la perfumeria accesible a todo el mundo. Creemos que descubrir fragancias deberia ser una experiencia facil, informada y divertida.",
-        about_p2: "Nuestra app conecta a los amantes de los perfumes con las mejores tiendas autorizadas, ofreciendo comparativas de precios transparentes y una comunidad donde compartir opiniones y descubrimientos.",
-        about_p3: "Con tecnologia de reconocimiento visual, una base de datos de mas de 213.000 fragancias y un sistema de gamificacion unico, Fragly transforma la forma en que descubres y coleccionas perfumes.",
+        about_p1: "Fragly nace de una idea simple: descubrir perfumes deberia ser tan facil como apuntar con el movil. Usamos reconocimiento visual, una base de datos de mas de 213.000 fragancias y precios en tiempo real de tiendas autorizadas para que tomes la mejor decision antes de comprar.",
+        about_p2: "Estamos construyendo Fragly en abierto — desde la arquitectura tecnica hasta el modelo de negocio. Si te interesa la perfumeria, la tecnologia o ambas, unete a la comunidad y ayudanos a crear la app que el mundo de las fragancias se merece.",
+        perfumeria_label: "Para profesionales",
+        perfumeria_title: "Tienes una perfumeria?",
+        perfumeria_desc: "Queremos trabajar contigo. Fragly conecta a miles de usuarios con perfumerias autorizadas. Si tienes un punto de venta y quieres aparecer en nuestra app, hablemos.",
+        perfumeria_cta: "Escribenos",
         footer_tagline: "Perfumeria inteligente",
         footer_privacy: "Privacidad",
         footer_terms: "Terminos de uso",
@@ -608,15 +650,15 @@ const translations = {
         nav_features: "Features",
         nav_about: "About",
         hero_badge: "Coming soon to the App Store",
-        hero_title: 'Discover your perfect <em>fragrance</em>',
-        hero_subtitle: "Recognize perfumes, compare prices from authorized retailers, and build your personal scent collection.",
+        hero_title: 'Point at the bottle. <em>Discover</em> the perfume.',
+        hero_subtitle: "Over 213,000 fragrances. Visual recognition, prices from authorized retailers, and a community of perfume lovers.",
         hero_cta: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> Coming to App Store',
         features_label: "Features",
         features_title: "Everything you need in one app",
         f1_title: "Visual recognition",
         f1_desc: "Point your camera at any perfume bottle and get all the information instantly.",
-        f2_title: "Price comparison",
-        f2_desc: "Compare real-time prices from authorized retailers.",
+        f2_title: "Where to buy it",
+        f2_desc: "Find authorized perfumeries near you and compare prices to get the best deal.",
         f3_title: "Your personal collection",
         f3_desc: "Organize your collection, keep a scent diary, and share your discoveries.",
         f4_title: "Learn by playing",
@@ -627,9 +669,12 @@ const translations = {
         f6_desc: "The most comprehensive database with scent notes, community reviews, and detailed ratings.",
         about_label: "About Fragly",
         about_title: "Perfumery for everyone",
-        about_p1: "Fragly was born with the mission of making the world of perfumery accessible to everyone. We believe discovering fragrances should be an easy, informed, and enjoyable experience.",
-        about_p2: "Our app connects fragrance lovers with the best authorized retailers, offering transparent price comparisons and a community to share opinions and discoveries.",
-        about_p3: "With visual recognition technology, a database of over 213,000 fragrances, and a unique gamification system, Fragly transforms the way you discover and collect perfumes.",
+        about_p1: "Fragly was born from a simple idea: discovering perfumes should be as easy as pointing your phone. We use visual recognition, a database of over 213,000 fragrances, and real-time prices from authorized retailers so you can make the best decision before buying.",
+        about_p2: "We are building Fragly in the open — from the technical architecture to the business model. If you are into perfumery, technology, or both, join the community and help us create the app the fragrance world deserves.",
+        perfumeria_label: "For professionals",
+        perfumeria_title: "Own a perfumery?",
+        perfumeria_desc: "We want to work with you. Fragly connects thousands of users with authorized perfumeries. If you have a retail location and want to appear in our app, let's talk.",
+        perfumeria_cta: "Get in touch",
         footer_tagline: "Smart perfumery",
         footer_privacy: "Privacy",
         footer_terms: "Terms of Use",
