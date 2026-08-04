@@ -3,418 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fragly — Descubre y colecciona fragancias</title>
-    <meta name="description" content="Fragly es la app de perfumería que te ayuda a descubrir fragancias, comparar precios en tiendas autorizadas y construir tu colección personal.">
+    <title>Nezly — Descubre y colecciona fragancias</title>
+    <meta name="description" content="Nezly es la app de perfumería que te ayuda a descubrir fragancias y construir tu colección personal.">
     <meta name="theme-color" content="#0d0d1a">
-    <link rel="canonical" href="https://fragly.app">
-    <meta property="og:title" content="Fragly — Descubre y colecciona fragancias">
+    <link rel="canonical" href="https://nezly.app/">
+    <meta property="og:title" content="Nezly — Descubre y colecciona fragancias">
     <meta property="og:description" content="Apunta al frasco y descubre cualquier perfume al instante. +100.000 fragancias, tiendas cerca de ti y tu colección personal en una sola app.">
-    <meta property="og:url" content="https://fragly.app">
+    <meta property="og:url" content="https://nezly.app/">
     <meta property="og:type" content="website">
-    <style>
-        :root {
-            --bg-primary: #0d0d1a;
-            --bg-card: rgba(255, 255, 255, 0.04);
-            --bg-card-hover: rgba(255, 255, 255, 0.07);
-            --border-subtle: rgba(255, 255, 255, 0.08);
-            --text-primary: #ffffff;
-            --text-secondary: rgba(255, 255, 255, 0.6);
-            --accent: #FF9500;
-            --accent-amber: #E07800;
-            --accent-soft: rgba(255, 149, 0, 0.15);
-            --radius: 16px;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', system-ui, sans-serif;
-            background: var(--bg-primary);
-            color: var(--text-primary);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-        }
-
-        /* -- NAV -- */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 100;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            background: rgba(13, 13, 26, 0.8);
-            border-bottom: 1px solid var(--border-subtle);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            color: var(--text-primary);
-            text-decoration: none;
-        }
-
-        .logo span { color: var(--accent); }
-
-        .nav-links {
-            display: flex;
-            gap: 1.5rem;
-            align-items: center;
-            list-style: none;
-        }
-
-        .nav-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .nav-links a:hover { color: var(--text-primary); }
-
-        .lang-toggle {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: 8px;
-            padding: 0.35rem 0.75rem;
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-
-        .lang-toggle:hover {
-            background: var(--bg-card-hover);
-            color: var(--text-primary);
-        }
-
-        /* -- HERO -- */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 8rem 2rem 4rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255, 149, 0, 0.08) 0%, transparent 70%);
-            pointer-events: none;
-        }
-
-        .hero-badge {
-            display: inline-block;
-            background: var(--accent-soft);
-            border: 1px solid rgba(255, 149, 0, 0.2);
-            border-radius: 100px;
-            padding: 0.4rem 1.2rem;
-            font-size: 0.85rem;
-            color: var(--accent);
-            margin-bottom: 2rem;
-            letter-spacing: 0.02em;
-        }
-
-        .hero h1 {
-            font-size: clamp(2.5rem, 6vw, 4.5rem);
-            font-weight: 700;
-            letter-spacing: -0.03em;
-            line-height: 1.1;
-            margin-bottom: 1.5rem;
-            max-width: 700px;
-        }
-
-        .hero h1 em {
-            font-style: normal;
-            color: var(--accent);
-        }
-
-        .hero p {
-            font-size: 1.15rem;
-            color: var(--text-secondary);
-            max-width: 520px;
-            margin-bottom: 2.5rem;
-            line-height: 1.7;
-        }
-
-        .app-store-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.6rem;
-            background: linear-gradient(135deg, var(--accent), var(--accent-amber));
-            color: #ffffff;
-            padding: 0.85rem 1.8rem;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .app-store-badge:hover {
-            transform: scale(1.03);
-            opacity: 0.9;
-        }
-
-        .app-store-badge svg {
-            width: 22px;
-            height: 22px;
-        }
-
-        /* -- FEATURES -- */
-        .features {
-            padding: 6rem 2rem;
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .section-label {
-            font-size: 0.85rem;
-            color: var(--accent);
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            margin-bottom: 0.75rem;
-        }
-
-        .section-title {
-            font-size: clamp(1.8rem, 4vw, 2.5rem);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            margin-bottom: 3rem;
-            max-width: 500px;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 1.5rem;
-        }
-
-        .feature-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border-subtle);
-            border-radius: var(--radius);
-            padding: 2rem;
-            transition: background 0.2s, border-color 0.2s;
-        }
-
-        .feature-card:hover {
-            background: var(--bg-card-hover);
-            border-color: rgba(255, 149, 0, 0.2);
-        }
-
-        .feature-icon {
-            font-size: 1.8rem;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            font-size: 1.1rem;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-        }
-
-        .feature-card p {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        /* -- ABOUT -- */
-        .about {
-            padding: 6rem 2rem;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .about p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 1.5rem;
-        }
-
-        /* -- PERFUMERIA CTA -- */
-        .perfumeria-cta {
-            padding: 6rem 2rem;
-            max-width: 700px;
-            margin: 0 auto;
-            text-align: center;
-        }
-
-        .perfumeria-cta .section-title {
-            max-width: none;
-        }
-
-        .perfumeria-cta p {
-            color: var(--text-secondary);
-            font-size: 1.05rem;
-            line-height: 1.8;
-            margin-bottom: 2rem;
-        }
-
-        .perfumeria-btn {
-            display: inline-block;
-            background: linear-gradient(135deg, var(--accent), var(--accent-amber));
-            color: #ffffff;
-            padding: 0.85rem 2rem;
-            border-radius: 12px;
-            font-size: 0.95rem;
-            font-weight: 600;
-            text-decoration: none;
-            transition: transform 0.2s, opacity 0.2s;
-        }
-
-        .perfumeria-btn:hover {
-            transform: scale(1.03);
-            opacity: 0.9;
-        }
-
-        /* -- FOOTER -- */
-        footer {
-            padding: 3rem 2rem;
-            border-top: 1px solid var(--border-subtle);
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-
-        .footer-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 2rem;
-        }
-
-        .footer-brand {
-            font-size: 1.2rem;
-            font-weight: 700;
-        }
-
-        .footer-brand span { color: var(--accent); }
-
-        .footer-brand p {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-top: 0.3rem;
-        }
-
-        .footer-links {
-            display: flex;
-            gap: 2rem;
-            list-style: none;
-        }
-
-        .footer-links a {
-            color: var(--text-secondary);
-            text-decoration: none;
-            font-size: 0.9rem;
-            transition: color 0.2s;
-        }
-
-        .footer-links a:hover { color: var(--text-primary); }
-
-        .footer-copy {
-            width: 100%;
-            text-align: center;
-            padding-top: 2rem;
-            margin-top: 1rem;
-            border-top: 1px solid var(--border-subtle);
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
-
-        /* -- LEGAL PAGES -- */
-        .legal {
-            display: none;
-            padding: 8rem 2rem 4rem;
-            max-width: 750px;
-            margin: 0 auto;
-        }
-
-        .legal.active { display: block; }
-
-        .legal h1 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
-
-        .legal .last-updated {
-            color: var(--text-secondary);
-            font-size: 0.9rem;
-            margin-bottom: 2.5rem;
-        }
-
-        .legal h2 {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-top: 2rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .legal p, .legal li {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.8;
-            margin-bottom: 1rem;
-        }
-
-        .legal ul {
-            padding-left: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .legal a {
-            color: var(--accent);
-            text-decoration: none;
-        }
-
-        .legal a:hover { text-decoration: underline; }
-
-        .back-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.4rem;
-            color: var(--accent);
-            text-decoration: none;
-            font-size: 0.9rem;
-            margin-bottom: 2rem;
-        }
-
-        .back-link:hover { text-decoration: underline; }
-
-        /* -- RESPONSIVE -- */
-        @media (max-width: 640px) {
-            nav { padding: 1rem; }
-            .nav-links { gap: 1rem; }
-            .nav-links a { font-size: 0.8rem; }
-            .features-grid { grid-template-columns: 1fr; }
-            .footer-content { flex-direction: column; align-items: center; text-align: center; }
-            .footer-links { flex-direction: column; gap: 1rem; align-items: center; }
-        }
-    </style>
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32.png">
+    <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+    <link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 
 <!-- NAVIGATION -->
 <nav>
-    <a href="#" class="logo" onclick="showPage('home')">Fragl<span>y</span></a>
+    <a href="#" class="logo" onclick="showPage('home')"><img src="assets/nezly-icon-256.png" alt=""><span class="logo-word">Nezl<span>y</span></span></a>
     <ul class="nav-links">
         <li><a href="#features" data-i18n="nav_features">Funcionalidades</a></li>
         <li><a href="#about" data-i18n="nav_about">Acerca de</a></li>
@@ -429,7 +34,7 @@
     <section class="hero">
         <div class="hero-badge" data-i18n="hero_badge">Disponible pronto en App Store</div>
         <h1 data-i18n="hero_title">Apunta al frasco. <em>Descubre</em> el perfume.</h1>
-        <p data-i18n="hero_subtitle">Mas de 100.000 fragancias. Reconocimiento visual, precios en tiendas autorizadas y una comunidad de amantes del perfume.</p>
+        <p data-i18n="hero_subtitle">Mas de 100.000 fragancias. Reconocimiento visual y una comunidad de amantes del perfume.</p>
         <a href="#" class="app-store-badge" data-i18n="hero_cta">
             <svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
             Pronto en App Store
@@ -449,7 +54,7 @@
             <div class="feature-card">
                 <div class="feature-icon">💰</div>
                 <h3 data-i18n="f2_title">Donde comprarlo</h3>
-                <p data-i18n="f2_desc">Ve que tiendas autorizadas cerca de ti tienen disponible el perfume que buscas, con precio y distancia.</p>
+                <p data-i18n="f2_desc">Ve que tiendas autorizadas cerca de ti tienen disponible el perfume que buscas.</p>
             </div>
             <div class="feature-card">
                 <div class="feature-icon">📚</div>
@@ -462,11 +67,6 @@
                 <p data-i18n="f4_desc">Quiz diario, retos semanales, insignias y niveles para aprender sobre perfumeria de forma divertida.</p>
             </div>
             <div class="feature-card">
-                <div class="feature-icon">🔔</div>
-                <h3 data-i18n="f5_title">Alertas de precio</h3>
-                <p data-i18n="f5_desc">Activa una alerta y te aviso cuando un perfume que quieres baje de precio en alguna tienda autorizada.</p>
-            </div>
-            <div class="feature-card">
                 <div class="feature-icon">🗂️</div>
                 <h3 data-i18n="f6_title">+100.000 fragancias</h3>
                 <p data-i18n="f6_desc">La base de datos mas completa con notas olfativas, reseñas de la comunidad y puntuaciones detalladas.</p>
@@ -476,17 +76,17 @@
 
     <!-- ABOUT -->
     <section class="about" id="about">
-        <div class="section-label" data-i18n="about_label">Acerca de Fragly</div>
+        <div class="section-label" data-i18n="about_label">Acerca de Nezly</div>
         <h2 class="section-title" data-i18n="about_title">Perfumeria para todos</h2>
-        <p data-i18n="about_p1">Fragly nace de una idea simple: descubrir perfumes deberia ser tan facil como apuntar con el movil. Uso reconocimiento visual, una base de datos de mas de 100.000 fragancias y precios en tiempo real de tiendas autorizadas para que tomes la mejor decision antes de comprar.</p>
-        <p data-i18n="about_p2">Estoy construyendo Fragly en abierto, desde la arquitectura tecnica hasta el modelo de negocio. Si te interesa la perfumeria, la tecnologia o ambas, unete a la comunidad y ayudame a crear la app que el mundo de las fragancias se merece.</p>
+        <p data-i18n="about_p1">Nezly nace de una idea simple: descubrir perfumes deberia ser tan facil como apuntar con el movil. Uso reconocimiento visual y una base de datos de mas de 100.000 fragancias para que tomes la mejor decision antes de comprar.</p>
+        <p data-i18n="about_p2">Estoy construyendo Nezly en abierto, desde la arquitectura tecnica hasta el modelo de negocio. Si te interesa la perfumeria, la tecnologia o ambas, unete a la comunidad y ayudame a crear la app que el mundo de las fragancias se merece.</p>
     </section>
 
     <!-- PERFUMERIA CTA -->
     <section class="perfumeria-cta" id="perfumeria">
         <div class="section-label" data-i18n="perfumeria_label">Para profesionales</div>
         <h2 class="section-title" data-i18n="perfumeria_title">&iquest;Tienes una perfumeria?</h2>
-        <p data-i18n="perfumeria_desc">Quiero trabajar contigo. Fragly conecta a miles de usuarios con perfumerias autorizadas. Si tienes un punto de venta y quieres aparecer en mi app, hablemos.</p>
+        <p data-i18n="perfumeria_desc">Quiero trabajar contigo. Nezly conecta a miles de usuarios con perfumerias autorizadas. Si tienes un punto de venta y quieres aparecer en mi app, hablemos.</p>
         <a href="mailto:fernando.jurado.madrid@gmail.com" class="perfumeria-btn" data-i18n="perfumeria_cta">Escríbenos</a>
     </section>
 
@@ -495,83 +95,537 @@
 <!-- PRIVACY POLICY PAGE -->
 <div id="page-privacy" class="legal">
     <a href="#" class="back-link" onclick="showPage('home')">← <span data-i18n="back_home">Volver al inicio</span></a>
-    <h1 data-i18n="privacy_title">Politica de Privacidad</h1>
-    <p class="last-updated" data-i18n="privacy_updated">Última actualización: 10 de marzo de 2026</p>
 
-    <h2 data-i18n="priv_1_h">1. Informacion que recopilo</h2>
-    <p data-i18n="priv_1_p">Fragly recopila la minima informacion necesaria para ofrecer el servicio:</p>
-    <ul>
-        <li data-i18n="priv_1_li1"><strong>Datos de cuenta:</strong> Identificador anonimo de Sign in with Apple. No almaceno tu email real ni contrasenas.</li>
-        <li data-i18n="priv_1_li2"><strong>Datos de uso:</strong> Tu coleccion de perfumes, reseñas, puntuaciones de quiz y preferencias de la app, almacenados en tu dispositivo y en mis servidores para sincronizacion.</li>
-        <li data-i18n="priv_1_li3"><strong>Imagenes de camara:</strong> Las imagenes capturadas para reconocimiento visual se procesan en el dispositivo y no se envian a mis servidores.</li>
-    </ul>
+    <div class="legal-content" data-lang="es">
+        <h1>Política de Privacidad</h1>
+        <p class="last-updated">Última actualización: agosto de 2026</p>
 
-    <h2 data-i18n="priv_2_h">2. Como uso tu informacion</h2>
-    <p data-i18n="priv_2_p">Uso tus datos exclusivamente para:</p>
-    <ul>
-        <li data-i18n="priv_2_li1">Ofrecer y mejorar las funcionalidades de la app</li>
-        <li data-i18n="priv_2_li2">Sincronizar tu coleccion y progreso entre dispositivos</li>
-        <li data-i18n="priv_2_li3">Enviarte alertas de precio que hayas configurado</li>
-    </ul>
+        <h2>1. Quién es el responsable del tratamiento</h2>
+        <p>El responsable del tratamiento de tus datos personales es el titular del servicio Nezly, cuyos datos identificativos completos se encuentran en el <a href="aviso-legal.html">Aviso Legal</a>.</p>
+        <p>Correo electrónico de contacto: <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>Nezly es una aplicación móvil de descubrimiento, gestión y comparación de perfumes disponible en la App Store de Apple.</p>
 
-    <h2 data-i18n="priv_3_h">3. Enlaces de afiliado</h2>
-    <p data-i18n="priv_3_p">Fragly incluye enlaces a tiendas autorizadas a traves de programas de afiliados. Cuando compras a traves de estos enlaces, puedo recibir una comision sin coste adicional para ti. Estos enlaces estan claramente identificados en la app.</p>
+        <h2>2. Qué datos personales recogemos y cómo los obtenemos</h2>
+        <h3>2.1. Datos que tú nos proporcionas directamente</h3>
+        <p>Al crear una cuenta e interactuar con la app:</p>
+        <ul>
+            <li><strong>Dirección de correo electrónico</strong>: necesaria para crear tu cuenta. Es única en nuestro sistema. Nunca se muestra a otros usuarios ni se devuelve al cliente de la app en ninguna respuesta.</li>
+            <li><strong>Nombre de usuario</strong>: elegido por ti al registrarte. Es visible para el resto de usuarios en tu perfil público, en tus reseñas y en las tablas de clasificación.</li>
+            <li><strong>Credenciales de autenticación</strong>: Nezly utiliza Passkeys (WebAuthn/FIDO2) almacenadas en el iCloud Keychain de tu dispositivo Apple. En nuestro servidor solo guardamos la clave pública de tu passkey, un identificador de credencial y metadatos técnicos del dispositivo (nombre del dispositivo, indicador de respaldo en iCloud). Los datos biométricos (Face ID, Touch ID) nunca abandonan el Secure Enclave de tu iPhone y no son accesibles para Nezly en ningún momento.</li>
+            <li><strong>Contenido de reseñas</strong>: texto libre, valoraciones numéricas, ocasión y estación. Las reseñas son visibles para todos los usuarios de la app.</li>
+            <li><strong>Notas de diario</strong>: texto libre sobre tus experiencias con perfumes. Son privadas y solo visibles para ti.</li>
+            <li><strong>Datos de colección</strong>: estado de cada perfume (en posesión, lista de deseos, probado, vendido), valoración y notas personales. Son privados y solo visibles para ti.</li>
+            <li><strong>Fotografías de contribución</strong>: cuando propones un perfume nuevo al catálogo, puedes subir una foto del producto. Esta imagen se almacena en nuestro servidor y, una vez aprobada la contribución, es visible para todos los usuarios.</li>
+            <li><strong>Reportes de contenido</strong>: si reportas una reseña, se registra el motivo y el texto opcional que indiques.</li>
+        </ul>
 
-    <h2 data-i18n="priv_4_h">4. Comparticion de datos</h2>
-    <p data-i18n="priv_4_p">No vendo, alquilo ni comparto tu informacion personal con terceros. Los unicos datos compartidos son los necesarios para procesar compras a traves de enlaces de afiliado, gestionados directamente por las tiendas.</p>
+        <h3>2.2. Datos que se generan automáticamente</h3>
+        <ul>
+            <li><strong>Datos de perfil público</strong>: tu nivel, experiencia (XP), insignias y progreso en retos semanales son calculados por el sistema y visibles para otros usuarios.</li>
+            <li><strong>Enlaces de afiliado</strong>: cuando pulsas un enlace de compra hacia una tienda partner, generamos un identificador opaco que se transmite a la tienda a través de la URL de redirección. Internamente vinculamos ese identificador a tu cuenta para poder reconciliar comisiones de afiliado. La tienda partner recibe únicamente ese identificador y el precio/moneda mostrado; nunca tu email, nombre de usuario ni ningún otro dato identificativo directo.</li>
+            <li><strong>Datos de uso internos</strong>: registros de acciones dentro de la app (compartir un perfume, completar un quiz, etc.) necesarios para el cálculo de XP y retos semanales. Estos datos se procesan exclusivamente en nuestro servidor y no se comparten con terceros.</li>
+        </ul>
 
-    <h2 data-i18n="priv_5_h">5. Almacenamiento y seguridad</h2>
-    <p data-i18n="priv_5_p">Tus datos se almacenan de forma segura con cifrado en transito y en reposo. Las credenciales de autenticacion se gestionan a traves de Sign in with Apple y Passkeys (WebAuthn), sin que almacene contrasenas.</p>
+        <h3>2.3. Datos que NO recogemos</h3>
+        <ul>
+            <li><strong>Imágenes o vídeos de escaneo</strong>: el reconocimiento de producto (código de barras, OCR, reconocimiento visual) ocurre íntegramente en tu dispositivo. Solo recibimos el resultado ya identificado (qué perfume es), nunca la foto ni el vídeo.</li>
+            <li><strong>Ubicación persistente</strong>: cuando consultas tiendas cercanas, tu dispositivo envía su ubicación de forma puntual para calcular distancias. Esta ubicación no se almacena en nuestro servidor.</li>
+            <li><strong>Historial de búsquedas</strong>: las consultas de búsqueda se procesan en memoria y no se registran ni vinculan a tu cuenta.</li>
+            <li><strong>Datos biométricos</strong>: Face ID y Touch ID permanecen siempre en el Secure Enclave de tu dispositivo.</li>
+            <li><strong>IDFA ni identificador de publicidad</strong>: no accedemos al identificador de publicidad de Apple ni a ningún otro identificador con fines de tracking.</li>
+            <li><strong>Datos de salud, financieros, contactos o agenda</strong>.</li>
+        </ul>
 
-    <h2 data-i18n="priv_6_h">6. Tus derechos</h2>
-    <p data-i18n="priv_6_p">Puedes solicitar la eliminacion de tu cuenta y todos los datos asociados en cualquier momento desde los ajustes de la app o contactandome en <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>.</p>
+        <h2>3. Para qué usamos tus datos y con qué base legal</h2>
+        <table>
+            <tr><th>Finalidad</th><th>Datos utilizados</th><th>Base legal (art. 6.1 RGPD)</th></tr>
+            <tr><td>Crear y gestionar tu cuenta</td><td>Email, username, passkey pública</td><td>Ejecución del contrato (art. 6.1.b)</td></tr>
+            <tr><td>Prestar el servicio (catálogo, colección, diario, quiz, retos, compartir)</td><td>Contenido generado por ti, datos de uso internos</td><td>Ejecución del contrato (art. 6.1.b)</td></tr>
+            <tr><td>Publicar tus reseñas para la comunidad</td><td>Texto de reseña, username, valoraciones</td><td>Consentimiento (art. 6.1.a) — puedes eliminar tus reseñas en cualquier momento</td></tr>
+            <tr><td>Moderar contenido (filtrado, reportes, bloqueos)</td><td>Texto de reseñas, datos de reportes</td><td>Interés legítimo (art. 6.1.f) — mantener un entorno seguro</td></tr>
+            <tr><td>Revisar contribuciones de perfumes nuevos</td><td>Nombre, marca, foto del producto</td><td>Consentimiento (art. 6.1.a) — acción voluntaria del usuario</td></tr>
+            <tr><td>Mostrar tiendas cercanas</td><td>Ubicación puntual (no almacenada)</td><td>Consentimiento (art. 6.1.a) — permiso del sistema operativo</td></tr>
+            <tr><td>Gestionar enlaces de compra con tiendas partner (afiliación)</td><td>Identificador opaco de enlaces de afiliado</td><td>Interés legítimo (art. 6.1.f) — sostenibilidad económica del servicio</td></tr>
+            <tr><td>Calcular gamificación (XP, nivel, insignias, retos)</td><td>Datos de uso internos</td><td>Ejecución del contrato (art. 6.1.b)</td></tr>
+            <tr><td>Atender solicitudes y ejercicio de derechos</td><td>Email, datos de la solicitud</td><td>Obligación legal (art. 6.1.c)</td></tr>
+        </table>
 
-    <h2 data-i18n="priv_7_h">7. Contacto</h2>
-    <p data-i18n="priv_7_p">Para cualquier consulta sobre privacidad: <a href="mailto:privacy@fragly.app">privacy@fragly.app</a></p>
+        <h2>4. Con quién compartimos tus datos</h2>
+        <h3>4.1. Tiendas partner (afiliación)</h3>
+        <p>Actualmente operamos con <strong>Awin</strong> (Awin AG, Eichhornstraße 3, 10785 Berlín, Alemania) como red de afiliación. Cuando pulsas un enlace de compra, la tienda partner asociada recibe exclusivamente un identificador de clic opaco (UUID) y el precio/moneda mostrado. Nunca se transmite tu email, nombre de usuario ni ningún dato identificativo directo.</p>
+        <h3>4.2. Apple</h3>
+        <p>Tu passkey se almacena en el iCloud Keychain, gestionado por Apple Inc. conforme a su propia Política de Privacidad. Nezly no tiene acceso a los datos almacenados en el Keychain más allá de la clave pública que se intercambia durante el registro.</p>
+        <h3>4.3. Proveedor de alojamiento</h3>
+        <p>Nuestro servidor se encuentra actualmente dentro del Espacio Económico Europeo. Si en el futuro se trasladara fuera del EEE, adoptaremos las garantías adecuadas y actualizaremos esta política.</p>
+        <h3>4.4. Con quién NO compartimos datos</h3>
+        <ul>
+            <li>No vendemos tus datos personales a terceros.</li>
+            <li>No compartimos tus datos con redes publicitarias.</li>
+            <li>No utilizamos SDKs de analítica ni de crash reporting de terceros.</li>
+            <li>No rastreamos tu actividad a través de otras apps o sitios web. Nezly no muestra el aviso de App Tracking Transparency (ATT) de Apple porque no realiza ningún tipo de tracking cruzado.</li>
+        </ul>
+
+        <h2>5. Transferencias internacionales de datos</h2>
+        <p>Nuestro servidor se encuentra dentro del Espacio Económico Europeo (EEE). Tus datos personales no se transfieren fuera del EEE salvo en el caso del almacenamiento de tu passkey en iCloud Keychain (Apple Inc., EE.UU.), que se rige por la Política de Privacidad de Apple y está cubierto por el Marco de Privacidad de Datos UE-EE.UU. (EU-US Data Privacy Framework).</p>
+        <p>Si en el futuro fuera necesario transferir datos a un país fuera del EEE, adoptaremos las garantías adecuadas conforme al artículo 46 del RGPD y actualizaremos esta sección.</p>
+
+        <h2>6. Durante cuánto tiempo conservamos tus datos</h2>
+        <table>
+            <tr><th>Dato</th><th>Plazo de conservación</th></tr>
+            <tr><td>Datos de cuenta (email, username, passkey)</td><td>Mientras mantengas tu cuenta activa. Se eliminan al borrar la cuenta.</td></tr>
+            <tr><td>Reseñas</td><td>Mientras mantengas tu cuenta activa o hasta que las elimines. Si borras tu cuenta, las reseñas se anonimizan (se conserva el texto y la valoración, pero se desvinculan de tu identidad).</td></tr>
+            <tr><td>Diario, colección, alertas de precio</td><td>Mientras mantengas tu cuenta activa. Se eliminan al borrar la cuenta.</td></tr>
+            <tr><td>Contribuciones de perfume aprobadas</td><td>Indefinidamente como parte del catálogo público, desvinculadas de tu cuenta si la borras.</td></tr>
+            <tr><td>Fotografías de contribución</td><td>Indefinidamente como parte del catálogo público.</td></tr>
+            <tr><td>Datos de gamificación (XP, insignias, retos)</td><td>Mientras mantengas tu cuenta activa. Se eliminan al borrar la cuenta.</td></tr>
+            <tr><td>Reportes de contenido</td><td>Mientras sea necesario para la gestión de la moderación.</td></tr>
+            <tr><td>Enlaces de afiliado (identificador opaco)</td><td>Máximo 90 días desde el clic, salvo obligación legal de conservación.</td></tr>
+        </table>
+
+        <h2>7. Borrado de cuenta</h2>
+        <p>Puedes solicitar el borrado de tu cuenta directamente desde la app. Al hacerlo:</p>
+        <ul>
+            <li>Tus reseñas se anonimizan: se conserva el texto y la valoración (para mantener la integridad de las valoraciones agregadas de cada perfume), pero se desvinculan permanentemente de tu identidad.</li>
+            <li>El resto de datos personales se eliminan por completo: colección, diario, alertas de precio, credenciales de passkey en nuestro servidor, progreso de retos, insignias e historial de XP.</li>
+            <li>La passkey almacenada en tu iCloud Keychain no puede ser eliminada remotamente por Nezly. Si deseas eliminarla, deberás hacerlo manualmente desde Ajustes &gt; Contraseñas en tu dispositivo Apple.</li>
+            <li>Un token de sesión activo puede seguir siendo técnicamente válido durante unos minutos tras el borrado (hasta su expiración natural), aunque cualquier llamada a la API fallará porque tu cuenta ya no existe.</li>
+        </ul>
+        <p>También puedes solicitar el borrado escribiendo a <a href="mailto:legal@nezly.app">legal@nezly.app</a> desde el correo electrónico asociado a tu cuenta.</p>
+
+        <h2>8. Tus derechos</h2>
+        <p>Conforme al RGPD y a la LOPDGDD (Ley Orgánica 3/2018), tienes derecho a:</p>
+        <ul>
+            <li><strong>Acceso</strong>: obtener confirmación de si tratamos tus datos y, en su caso, acceder a ellos.</li>
+            <li><strong>Rectificación</strong>: solicitar la corrección de datos inexactos o incompletos.</li>
+            <li><strong>Supresión</strong>: solicitar el borrado de tus datos cuando ya no sean necesarios, retires tu consentimiento, u otra causa prevista legalmente.</li>
+            <li><strong>Limitación del tratamiento</strong>: solicitar la restricción del tratamiento en los supuestos previstos por el art. 18 RGPD.</li>
+            <li><strong>Portabilidad</strong>: recibir tus datos en formato estructurado, de uso común y lectura mecánica, y transmitirlos a otro responsable.</li>
+            <li><strong>Oposición</strong>: oponerte al tratamiento basado en interés legítimo por motivos relacionados con tu situación particular.</li>
+            <li><strong>Retirada del consentimiento</strong>: retirar en cualquier momento el consentimiento previamente otorgado, sin que ello afecte a la licitud del tratamiento previo.</li>
+        </ul>
+        <p>Para ejercer cualquiera de estos derechos, escribe a <a href="mailto:legal@nezly.app">legal@nezly.app</a> indicando tu solicitud y el correo electrónico asociado a tu cuenta. Responderemos en el plazo máximo de un mes, prorrogable dos meses adicionales en caso de solicitudes complejas (art. 12.3 RGPD).</p>
+        <p>Si consideras que el tratamiento de tus datos vulnera la normativa vigente, tienes derecho a presentar una reclamación ante la <strong>Agencia Española de Protección de Datos (AEPD)</strong>, C/ Jorge Juan 6, 28001 Madrid — <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>.</p>
+
+        <h2>9. Menores de edad</h2>
+        <p>Nezly no está dirigida a menores de 14 años. Conforme al artículo 7 de la LOPDGDD, no se recoge ni trata conscientemente datos personales de menores de 14 años sin el consentimiento de sus padres o tutores. Si tienes conocimiento de que un menor de 14 años ha creado una cuenta sin consentimiento parental, comunícanoslo a <a href="mailto:legal@nezly.app">legal@nezly.app</a> y procederemos a eliminar la cuenta y sus datos.</p>
+
+        <h2>10. Funcionalidades futuras</h2>
+        <p>En futuras versiones, Nezly podrá incorporar notificaciones push y funcionalidades sociales (sistema de amigos). Cuando estas funciones se activen, se te informará y se te pedirá consentimiento específico antes de su uso. Esta Política de Privacidad será actualizada para reflejar cualquier nuevo tratamiento de datos derivado de dichas funcionalidades.</p>
+
+        <h2>11. Seguridad</h2>
+        <p>Hemos adoptado las medidas técnicas y organizativas apropiadas para proteger tus datos personales frente a accesos no autorizados, alteración, pérdida o destrucción, incluyendo el uso de HTTPS/TLS para todas las comunicaciones, autenticación basada en Passkeys (WebAuthn/FIDO2), y almacenamiento exclusivo de la clave pública en nuestro servidor.</p>
+
+        <h2>12. Modificaciones de esta política</h2>
+        <p>Podemos actualizar esta Política de Privacidad para reflejar cambios en nuestras prácticas o en la legislación aplicable. Cuando realicemos cambios sustanciales, te informaremos a través de la app o por correo electrónico antes de que entren en vigor. La fecha de última actualización se indica al inicio del documento.</p>
+
+        <h2>13. Contacto</h2>
+        <p>Para cualquier consulta relacionada con esta Política de Privacidad o con el tratamiento de tus datos personales:</p>
+        <p><strong>Correo electrónico:</strong> <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>Los datos identificativos completos del responsable del tratamiento se encuentran en el <a href="aviso-legal.html">Aviso Legal</a>.</p>
+    </div>
+
+    <div class="legal-content" data-lang="en">
+        <h1>Privacy Policy</h1>
+        <p class="last-updated">Last updated: August 2026</p>
+
+        <h2>1. Who is responsible for processing your data</h2>
+        <p>The data controller for your personal data is the owner of the Nezly service, whose full identifying details can be found in the <a href="aviso-legal.html">Legal Notice</a>.</p>
+        <p>Contact email: <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>Nezly is a mobile app for discovering, managing, and comparing perfumes, available on the Apple App Store.</p>
+
+        <h2>2. What personal data we collect and how we obtain it</h2>
+        <h3>2.1. Data you provide directly</h3>
+        <p>When creating an account and using the app:</p>
+        <ul>
+            <li><strong>Email address</strong>: required to create your account. It is unique in our system. It is never shown to other users or returned to the app client in any response.</li>
+            <li><strong>Username</strong>: chosen by you at sign-up. Visible to other users on your public profile, your reviews, and leaderboards.</li>
+            <li><strong>Authentication credentials</strong>: Nezly uses Passkeys (WebAuthn/FIDO2) stored in your Apple device's iCloud Keychain. Our server only stores your passkey's public key, a credential identifier, and technical device metadata (device name, iCloud backup indicator). Biometric data (Face ID, Touch ID) never leaves your iPhone's Secure Enclave and is never accessible to Nezly.</li>
+            <li><strong>Review content</strong>: free text, numeric ratings, occasion, and season. Reviews are visible to all app users.</li>
+            <li><strong>Diary notes</strong>: free text about your experiences with perfumes. Private, visible only to you.</li>
+            <li><strong>Collection data</strong>: status of each perfume (owned, wishlist, tried, sold), rating, and personal notes. Private, visible only to you.</li>
+            <li><strong>Contribution photos</strong>: when you propose a new perfume for the catalog, you may upload a product photo. This image is stored on our server and, once the contribution is approved, becomes visible to all users.</li>
+            <li><strong>Content reports</strong>: if you report a review, the reason and any optional text you provide are recorded.</li>
+        </ul>
+
+        <h3>2.2. Data generated automatically</h3>
+        <ul>
+            <li><strong>Public profile data</strong>: your level, experience points (XP), badges, and weekly challenge progress are calculated by the system and visible to other users.</li>
+            <li><strong>Affiliate links</strong>: when you tap a purchase link to a partner store, we generate an opaque identifier that is passed to the store through the redirect URL. Internally we link that identifier to your account to reconcile affiliate commissions. The partner store only receives that identifier and the displayed price/currency — never your email, username, or any other direct identifying data.</li>
+            <li><strong>Internal usage data</strong>: records of in-app actions (sharing a perfume, completing a quiz, etc.) needed to calculate XP and weekly challenges. This data is processed exclusively on our server and is not shared with third parties.</li>
+        </ul>
+
+        <h3>2.3. Data we do NOT collect</h3>
+        <ul>
+            <li><strong>Scan images or video</strong>: product recognition (barcode, OCR, visual recognition) happens entirely on your device. We only receive the already-identified result (which perfume it is), never the photo or video.</li>
+            <li><strong>Persistent location</strong>: when you look up nearby stores, your device sends its location on a one-off basis to calculate distances. This location is not stored on our server.</li>
+            <li><strong>Search history</strong>: search queries are processed in memory and are neither logged nor linked to your account.</li>
+            <li><strong>Biometric data</strong>: Face ID and Touch ID always stay within your device's Secure Enclave.</li>
+            <li><strong>IDFA or advertising identifier</strong>: we do not access Apple's advertising identifier or any other tracking identifier.</li>
+            <li><strong>Health, financial, contacts, or calendar data</strong>.</li>
+        </ul>
+
+        <h2>3. What we use your data for, and the legal basis</h2>
+        <table>
+            <tr><th>Purpose</th><th>Data used</th><th>Legal basis (GDPR art. 6.1)</th></tr>
+            <tr><td>Create and manage your account</td><td>Email, username, public passkey</td><td>Performance of a contract (art. 6.1.b)</td></tr>
+            <tr><td>Provide the service (catalog, collection, diary, quiz, challenges, sharing)</td><td>Content you generate, internal usage data</td><td>Performance of a contract (art. 6.1.b)</td></tr>
+            <tr><td>Publish your reviews for the community</td><td>Review text, username, ratings</td><td>Consent (art. 6.1.a) — you can delete your reviews at any time</td></tr>
+            <tr><td>Moderate content (filtering, reports, blocking)</td><td>Review text, report data</td><td>Legitimate interest (art. 6.1.f) — keeping a safe environment</td></tr>
+            <tr><td>Review new perfume contributions</td><td>Name, brand, product photo</td><td>Consent (art. 6.1.a) — voluntary user action</td></tr>
+            <tr><td>Show nearby stores</td><td>One-off location (not stored)</td><td>Consent (art. 6.1.a) — OS-level permission</td></tr>
+            <tr><td>Manage purchase links with partner stores (affiliation)</td><td>Opaque affiliate link identifier</td><td>Legitimate interest (art. 6.1.f) — economic sustainability of the service</td></tr>
+            <tr><td>Calculate gamification (XP, level, badges, challenges)</td><td>Internal usage data</td><td>Performance of a contract (art. 6.1.b)</td></tr>
+            <tr><td>Handle requests and exercise of rights</td><td>Email, request data</td><td>Legal obligation (art. 6.1.c)</td></tr>
+        </table>
+
+        <h2>4. Who we share your data with</h2>
+        <h3>4.1. Partner stores (affiliation)</h3>
+        <p>We currently work with <strong>Awin</strong> (Awin AG, Eichhornstraße 3, 10785 Berlin, Germany) as our affiliate network. When you tap a purchase link, the associated partner store receives only an opaque click identifier (UUID) and the displayed price/currency. Your email, username, or any direct identifying data is never transmitted.</p>
+        <h3>4.2. Apple</h3>
+        <p>Your passkey is stored in iCloud Keychain, managed by Apple Inc. under its own Privacy Policy. Nezly has no access to data stored in the Keychain beyond the public key exchanged during registration.</p>
+        <h3>4.3. Hosting provider</h3>
+        <p>Our server is currently located within the European Economic Area. If it were relocated outside the EEA in the future, we would adopt appropriate safeguards and update this policy.</p>
+        <h3>4.4. Who we do NOT share data with</h3>
+        <ul>
+            <li>We do not sell your personal data to third parties.</li>
+            <li>We do not share your data with advertising networks.</li>
+            <li>We do not use third-party analytics or crash-reporting SDKs.</li>
+            <li>We do not track your activity across other apps or websites. Nezly does not show Apple's App Tracking Transparency (ATT) prompt because it performs no cross-app/cross-site tracking of any kind.</li>
+        </ul>
+
+        <h2>5. International data transfers</h2>
+        <p>Our server is located within the European Economic Area (EEA). Your personal data is not transferred outside the EEA, except for your passkey stored in iCloud Keychain (Apple Inc., USA), which is governed by Apple's own Privacy Policy and is covered by the EU-US Data Privacy Framework.</p>
+        <p>If it becomes necessary to transfer data to a country outside the EEA in the future, we will adopt appropriate safeguards under Article 46 GDPR and update this section.</p>
+
+        <h2>6. How long we keep your data</h2>
+        <table>
+            <tr><th>Data</th><th>Retention period</th></tr>
+            <tr><td>Account data (email, username, passkey)</td><td>While your account remains active. Deleted when you delete your account.</td></tr>
+            <tr><td>Reviews</td><td>While your account remains active, or until you delete them. If you delete your account, reviews are anonymized (text and rating are kept, but unlinked from your identity).</td></tr>
+            <tr><td>Diary, collection, price alerts</td><td>While your account remains active. Deleted when you delete your account.</td></tr>
+            <tr><td>Approved perfume contributions</td><td>Indefinitely as part of the public catalog, unlinked from your account if you delete it.</td></tr>
+            <tr><td>Contribution photos</td><td>Indefinitely as part of the public catalog.</td></tr>
+            <tr><td>Gamification data (XP, badges, challenges)</td><td>While your account remains active. Deleted when you delete your account.</td></tr>
+            <tr><td>Content reports</td><td>As long as necessary for moderation purposes.</td></tr>
+            <tr><td>Affiliate links (opaque identifier)</td><td>Maximum 90 days from the click, unless a legal retention obligation applies.</td></tr>
+        </table>
+
+        <h2>7. Account deletion</h2>
+        <p>You can request deletion of your account directly from the app. When you do:</p>
+        <ul>
+            <li>Your reviews are anonymized: the text and rating are kept (to preserve the integrity of each perfume's aggregate ratings), but permanently unlinked from your identity.</li>
+            <li>All other personal data is completely deleted: collection, diary, price alerts, passkey credentials on our server, challenge progress, badges, and XP history.</li>
+            <li>The passkey stored in your iCloud Keychain cannot be remotely deleted by Nezly. If you want to remove it, you must do so manually from Settings &gt; Passwords on your Apple device.</li>
+            <li>An active session token may remain technically valid for a few minutes after deletion (until its natural expiry), although any API call will fail because your account no longer exists.</li>
+        </ul>
+        <p>You can also request deletion by writing to <a href="mailto:legal@nezly.app">legal@nezly.app</a> from the email address associated with your account.</p>
+
+        <h2>8. Your rights</h2>
+        <p>Under the GDPR and Spanish Organic Law 3/2018 (LOPDGDD), you have the right to:</p>
+        <ul>
+            <li><strong>Access</strong>: obtain confirmation of whether we process your data and, if so, access it.</li>
+            <li><strong>Rectification</strong>: request correction of inaccurate or incomplete data.</li>
+            <li><strong>Erasure</strong>: request deletion of your data when it is no longer necessary, you withdraw consent, or another legally provided ground applies.</li>
+            <li><strong>Restriction of processing</strong>: request restriction of processing in the cases set out in GDPR art. 18.</li>
+            <li><strong>Portability</strong>: receive your data in a structured, commonly used, machine-readable format, and transmit it to another controller.</li>
+            <li><strong>Objection</strong>: object to processing based on legitimate interest for reasons related to your particular situation.</li>
+            <li><strong>Withdrawal of consent</strong>: withdraw previously given consent at any time, without affecting the lawfulness of processing prior to withdrawal.</li>
+        </ul>
+        <p>To exercise any of these rights, write to <a href="mailto:legal@nezly.app">legal@nezly.app</a> stating your request and the email address associated with your account. We will respond within one month at most, extendable by two further months for complex requests (GDPR art. 12.3).</p>
+        <p>If you believe our processing of your data breaches applicable law, you have the right to lodge a complaint with the <strong>Spanish Data Protection Agency (AEPD)</strong>, C/ Jorge Juan 6, 28001 Madrid — <a href="https://www.aepd.es" target="_blank" rel="noopener">www.aepd.es</a>.</p>
+
+        <h2>9. Minors</h2>
+        <p>Nezly is not directed at children under 14. Under article 7 of the LOPDGDD, we do not knowingly collect or process personal data from children under 14 without parental or guardian consent. If you become aware that a child under 14 has created an account without parental consent, please let us know at <a href="mailto:legal@nezly.app">legal@nezly.app</a> and we will delete the account and its data.</p>
+
+        <h2>10. Future features</h2>
+        <p>In future versions, Nezly may introduce push notifications and social features (a friends system). When these features are activated, you will be informed and asked for specific consent before use. This Privacy Policy will be updated to reflect any new data processing arising from such features.</p>
+
+        <h2>11. Security</h2>
+        <p>We have adopted appropriate technical and organizational measures to protect your personal data against unauthorized access, alteration, loss, or destruction, including HTTPS/TLS for all communications, Passkey-based authentication (WebAuthn/FIDO2), and storing only the public key on our server.</p>
+
+        <h2>12. Changes to this policy</h2>
+        <p>We may update this Privacy Policy to reflect changes in our practices or in applicable law. When we make substantial changes, we will inform you through the app or by email before they take effect. The last-updated date is shown at the top of this document.</p>
+
+        <h2>13. Contact</h2>
+        <p>For any query related to this Privacy Policy or the processing of your personal data:</p>
+        <p><strong>Email:</strong> <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>The full identifying details of the data controller can be found in the <a href="aviso-legal.html">Legal Notice</a>.</p>
+    </div>
 </div>
 
 <!-- TERMS OF SERVICE PAGE -->
 <div id="page-terms" class="legal">
     <a href="#" class="back-link" onclick="showPage('home')">← <span data-i18n="back_home">Volver al inicio</span></a>
-    <h1 data-i18n="terms_title">Términos de Uso</h1>
-    <p class="last-updated" data-i18n="terms_updated">Última actualización: 10 de marzo de 2026</p>
 
-    <h2 data-i18n="terms_1_h">1. Aceptación de los términos</h2>
-    <p data-i18n="terms_1_p">Al usar Fragly, aceptas estos términos de uso. Si no estas de acuerdo, no utilices la app.</p>
+    <div class="legal-content" data-lang="es">
+        <h1>Términos y Condiciones de Uso</h1>
+        <p class="last-updated">Última actualización: agosto de 2026</p>
 
-    <h2 data-i18n="terms_2_h">2. Descripción del servicio</h2>
-    <p data-i18n="terms_2_p">Fragly es una plataforma de descubrimiento de fragancias que ofrece reconocimiento visual de perfumes, consulta de disponibilidad y precios en tiendas autorizadas, gestión de colecciones personales y contenido educativo sobre perfumería.</p>
+        <h2>1. Titularidad e identificación del prestador</h2>
+        <p>El Servicio Nezly es ofrecido por el titular identificado en el <a href="aviso-legal.html">Aviso Legal</a>, donde se encuentran los datos exigidos por el artículo 10 de la Ley 34/2002, de 11 de julio, de Servicios de la Sociedad de la Información y del Comercio Electrónico (LSSI-CE).</p>
+        <p>Correo electrónico de contacto: <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>Los presentes Términos y Condiciones de Uso (en adelante, los "Términos") regulan el acceso y uso de la aplicación Nezly (en adelante, la "App") y del sitio web <a href="https://nezly.app">nezly.app</a> (en adelante, el "Sitio Web"), conjuntamente denominados el "Servicio".</p>
 
-    <h2 data-i18n="terms_3_h">3. Precios y enlaces de compra</h2>
-    <p data-i18n="terms_3_p">Los precios mostrados en Fragly provienen de tiendas autorizadas y pueden variar. Fragly no vende productos directamente. Las compras se realizan en las tiendas correspondientes bajo sus propios términos y condiciones. Fragly puede recibir comisiones por compras realizadas a traves de enlaces de afiliado.</p>
+        <h2>2. Aceptación de los Términos</h2>
+        <p>El acceso y uso del Servicio implica la aceptación plena y sin reservas de los presentes Términos. Si no estás de acuerdo con alguna de sus disposiciones, debes abstenerte de utilizar el Servicio.</p>
+        <p>Los presentes Términos, junto con la Política de Privacidad, el Aviso Legal y, en su caso, los Términos de Suscripción, constituyen el acuerdo completo entre tú y Nezly en relación con el uso del Servicio.</p>
 
-    <h2 data-i18n="terms_4_h">4. Contenido del usuario</h2>
-    <p data-i18n="terms_4_p">Eres responsable del contenido que publiques (reseñas, puntuaciones). Me reservo el derecho de moderar contenido que sea ofensivo, spam o viole los derechos de otros.</p>
+        <h2>3. Requisitos de edad</h2>
+        <p>Para usar Nezly debes tener al menos <strong>14 años</strong>. Si eres menor de 14 años, no debes crear una cuenta ni utilizar el Servicio. Conforme al artículo 7 de la Ley Orgánica 3/2018 (LOPDGDD), el tratamiento de datos personales de menores de 14 años requiere el consentimiento de sus padres o tutores legales.</p>
+        <p>Al crear una cuenta, declaras y garantizas que tienes al menos 14 años. Nezly se reserva el derecho de eliminar cuentas si tiene conocimiento fundado de que el titular es menor de esa edad.</p>
 
-    <h2 data-i18n="terms_5_h">5. Propiedad intelectual</h2>
-    <p data-i18n="terms_5_p">Las marcas de perfumes, imagenes de productos y nombres comerciales pertenecen a sus respectivos propietarios. Fragly los utiliza con fines informativos y de descubrimiento.</p>
+        <h2>4. Cuenta de usuario y autenticación</h2>
+        <h3>4.1. Registro</h3>
+        <p>El registro requiere una dirección de correo electrónico válida y la elección de un nombre de usuario. El correo electrónico es único en el sistema y se utiliza exclusivamente para la gestión interna de la cuenta; nunca se muestra a otros usuarios.</p>
+        <h3>4.2. Passkeys</h3>
+        <p>Nezly utiliza Passkeys (WebAuthn/FIDO2) como método de autenticación. La passkey se almacena en el iCloud Keychain de tu dispositivo Apple. Nezly solo almacena la clave pública correspondiente. Eres responsable de mantener la seguridad de tu cuenta y de tu dispositivo.</p>
+        <h3>4.3. Borrado de cuenta</h3>
+        <p>Puedes solicitar el borrado de tu cuenta en cualquier momento desde la propia App o escribiendo a <a href="mailto:legal@nezly.app">legal@nezly.app</a>. Los efectos del borrado se detallan en la sección 7 de la Política de Privacidad.</p>
 
-    <h2 data-i18n="terms_6_h">6. Limitación de responsabilidad</h2>
-    <p data-i18n="terms_6_p">Fragly se ofrece "tal cual". No garantizo la exactitud de los precios en todo momento ni la disponibilidad continua del servicio.</p>
+        <h2>5. Uso aceptable del Servicio</h2>
+        <p>Te comprometes a utilizar el Servicio de forma diligente, conforme a la legalidad vigente, los presentes Términos y la buena fe. En particular, te comprometes a no:</p>
+        <ul>
+            <li>Publicar contenido ilícito, difamatorio, discriminatorio, amenazante, acosador, obsceno o que vulnere derechos de terceros (incluidos derechos de propiedad intelectual e industrial, privacidad, honor e imagen).</li>
+            <li>Suplantar la identidad de otra persona o entidad.</li>
+            <li>Manipular valoraciones, reseñas, votos o cualquier mecanismo comunitario del Servicio.</li>
+            <li>Utilizar el Servicio para enviar contenido publicitario no solicitado (spam).</li>
+            <li>Introducir virus, malware o cualquier código dañino.</li>
+            <li>Intentar acceder a áreas restringidas del Servicio o a cuentas de otros usuarios.</li>
+            <li>Eludir, desactivar o interferir con las medidas de seguridad o las funcionalidades técnicas del Servicio.</li>
+        </ul>
 
-    <h2 data-i18n="terms_7_h">7. Contacto</h2>
-    <p data-i18n="terms_7_p">Para consultas sobre estos términos: <a href="mailto:legal@fragly.app">legal@fragly.app</a></p>
+        <h2>6. Contenido generado por el usuario (UGC)</h2>
+        <h3>6.1. Tipos de contenido</h3>
+        <p>Al utilizar el Servicio puedes generar distintos tipos de contenido:</p>
+        <ul>
+            <li><strong>Reseñas de perfumes</strong>: texto libre, valoraciones numéricas, ocasión y estación. Son visibles para todos los usuarios.</li>
+            <li><strong>Contribuciones al catálogo</strong>: nombre, marca, concentración, año y fotografía de un perfume no listado. Son visibles para todos los usuarios una vez aprobadas.</li>
+            <li><strong>Notas de diario y datos de colección</strong>: son privados y solo visibles para ti.</li>
+        </ul>
+        <h3>6.2. Licencia que otorgas a Nezly</h3>
+        <p>Al publicar contenido visible para otros usuarios (reseñas y contribuciones aprobadas), otorgas a Nezly una licencia no exclusiva, mundial, gratuita, sublicenciable (únicamente a proveedores de servicios técnicos necesarios para operar el Servicio) y transferible para reproducir, distribuir, comunicar públicamente, adaptar y transformar dicho contenido, exclusivamente con la finalidad de operar, mantener, mejorar y promocionar el Servicio.</p>
+        <p>Esta licencia se mantiene vigente mientras tu contenido permanezca en el Servicio. Si eliminas tu contenido o tu cuenta, la licencia cesa, salvo para las reseñas anonimizadas que se conservan conforme a la sección 7 de la Política de Privacidad.</p>
+        <h3>6.3. Declaraciones y garantías sobre tu contenido</h3>
+        <p>Al publicar contenido, declaras y garantizas que:</p>
+        <ul>
+            <li>Eres titular de todos los derechos necesarios sobre dicho contenido, o dispones de autorización suficiente para su publicación.</li>
+            <li>El contenido no infringe derechos de propiedad intelectual o industrial, de privacidad, de honor ni de imagen de terceros.</li>
+            <li>Las fotografías de producto que subas como contribución son originales tuyas.</li>
+            <li>El contenido no es ilícito, difamatorio, discriminatorio, amenazante, obsceno ni contrario a la moral y al orden público.</li>
+        </ul>
+        <p>Eres el único responsable del contenido que publiques. Nezly no asume responsabilidad alguna por el incumplimiento de estas declaraciones.</p>
+        <h3>6.4. Moderación de contenido</h3>
+        <p>Nezly implementa los siguientes mecanismos de moderación:</p>
+        <ul>
+            <li><strong>Filtrado automático</strong>: las reseñas se someten a un filtro de contenido que rechaza textos con términos prohibidos.</li>
+            <li><strong>Revisión humana de contribuciones</strong>: los perfumes nuevos propuestos por usuarios pasan por revisión humana antes de hacerse visibles en el catálogo.</li>
+            <li><strong>Mecanismo de reporte</strong>: cualquier usuario puede reportar una reseña que considere ofensiva, spam, engañosa u objetable por otro motivo. Nezly revisará los reportes y adoptará las medidas oportunas, pudiendo incluir la ocultación o eliminación del contenido.</li>
+            <li><strong>Bloqueo de usuarios</strong>: puedes bloquear a otros usuarios para dejar de ver su contenido.</li>
+            <li><strong>Retirada discrecional</strong>: Nezly se reserva el derecho de retirar, ocultar o modificar cualquier contenido generado por usuarios, sin obligación de notificación previa, cuando considere que vulnera los presentes Términos, la legislación vigente, derechos de terceros, o la imagen y reputación del Servicio.</li>
+        </ul>
+        <p>De conformidad con el artículo 7 del Reglamento (UE) 2022/2065 (Reglamento de Servicios Digitales), la revisión voluntaria de contenido realizada por Nezly no constituye una obligación general de supervisión y no priva a Nezly de las exenciones de responsabilidad previstas en los artículos 4 a 6 del mismo Reglamento.</p>
+        <h3>6.5. Procedimiento de notificación y acción</h3>
+        <p>Si eres titular de derechos y consideras que algún contenido del Servicio vulnera tus derechos de propiedad intelectual, industrial, privacidad u otros derechos legítimos, puedes notificárnoslo enviando un correo a <a href="mailto:legal@nezly.app">legal@nezly.app</a> con la siguiente información:</p>
+        <ul>
+            <li>Identificación del contenido presuntamente infractor y su ubicación en el Servicio.</li>
+            <li>Identificación del derecho vulnerado y documentación acreditativa de tu titularidad o legitimación.</li>
+            <li>Tus datos de contacto.</li>
+            <li>Declaración de que la información proporcionada es exacta y de que actúas de buena fe.</li>
+        </ul>
+        <p>Nezly examinará la notificación y, si procede, retirará o bloqueará el acceso al contenido de conformidad con los artículos 11 y 16 de la Ley 34/2002 (LSSI-CE) y el artículo 16 del Reglamento (UE) 2022/2065 (DSA).</p>
+
+        <h2>7. Propiedad intelectual e industrial</h2>
+        <h3>7.1. Derechos de Nezly</h3>
+        <p>Todos los derechos de propiedad intelectual sobre el diseño, código fuente, estructura, selección y disposición de los contenidos del Servicio, así como las marcas, nombres comerciales y signos distintivos, pertenecen a Nezly o, en su caso, a sus licenciantes. La base de datos de perfumes de Nezly está protegida por el derecho sui generis del fabricante de bases de datos conforme a los artículos 133 a 137 del Real Decreto Legislativo 1/1996 (TRLPI) y a la Directiva 96/9/CE.</p>
+        <h3>7.2. Prohibición de extracción y reutilización</h3>
+        <p>Queda expresamente prohibida, sin autorización previa y por escrito de Nezly:</p>
+        <ul>
+            <li>La reproducción, distribución, comunicación pública, transformación o cualquier forma de explotación de los contenidos del Servicio, salvo para uso personal y privado.</li>
+            <li>La extracción y/o reutilización de la totalidad o de una parte sustancial del contenido de la base de datos, en los términos del artículo 133 del TRLPI.</li>
+            <li>El acceso automatizado al Servicio mediante bots, scrapers, crawlers, headless browsers o cualquier medio programático (salvo los motores de búsqueda públicos que cumplan con robots.txt y se limiten a indexar páginas para enlazar al Servicio).</li>
+            <li>La utilización de contenido del Servicio para desarrollar, entrenar, ajustar, evaluar o alimentar cualquier sistema de inteligencia artificial, modelo de lenguaje o tecnología de aprendizaje automático.</li>
+            <li>La creación de bases de datos, índices, datasets o recursos similares a partir de contenido del Servicio.</li>
+            <li>La ingeniería inversa sobre el software, la base de datos o los endpoints del Servicio.</li>
+        </ul>
+        <h3>7.3. Marcas de terceros</h3>
+        <p>Las marcas, nombres comerciales y logotipos de los perfumes mostrados en Nezly pertenecen a sus respectivos titulares y se utilizan exclusivamente con fines identificativos conforme al artículo 37 de la Ley 17/2001 de Marcas. Nezly no tiene relación comercial, patrocinio ni afiliación con dichas marcas salvo que se indique expresamente. Los precios mostrados proceden de comercios terceros y pueden incluir enlaces de afiliación.</p>
+
+        <h2>8. Enlaces de afiliación</h2>
+        <p>Nezly muestra precios de perfumes procedentes de tiendas partner a través de programas de afiliación. Al pulsar un enlace de compra, se te redirige a la tienda externa correspondiente. La transacción de compra se produce entre tú y la tienda; Nezly no es parte de dicha transacción, no transfiere la propiedad de ningún producto y no garantiza la exactitud de los precios, disponibilidad ni condiciones de venta mostrados.</p>
+        <p>Nezly puede recibir una comisión por las compras realizadas a través de estos enlaces, sin coste adicional para ti. Esta información se facilita conforme al artículo 20 de la Ley 34/2002 (LSSI-CE) y a la Directiva 2005/29/CE sobre prácticas comerciales desleales.</p>
+
+        <h2>9. Limitación de responsabilidad</h2>
+        <p>En la medida permitida por la legislación aplicable:</p>
+        <ul>
+            <li>El Servicio se proporciona "tal cual" y "según disponibilidad", sin garantías de ningún tipo, expresas o implícitas.</li>
+            <li>Nezly no garantiza la disponibilidad continua e ininterrumpida del Servicio, la ausencia de errores ni la exactitud de la información del catálogo.</li>
+            <li>Nezly no es responsable de los contenidos, productos, servicios ni políticas de privacidad de las tiendas partner externas a las que se enlaza desde el Servicio.</li>
+            <li>Nezly no es responsable del contenido generado por los usuarios, sin perjuicio de su obligación de actuar diligentemente conforme a los artículos 14 a 16 de la Ley 34/2002 (LSSI-CE) y los artículos 4 a 6 del Reglamento (UE) 2022/2065 (DSA) una vez tenga conocimiento efectivo de contenido ilícito.</li>
+            <li>En ningún caso la responsabilidad total de Nezly frente a ti superará la cantidad que hayas abonado a Nezly en los 12 meses anteriores al hecho generador de la responsabilidad (o 50 €, si no has realizado ningún pago).</li>
+        </ul>
+        <p>Nada en los presentes Términos excluye ni limita la responsabilidad de Nezly por dolo, culpa grave, daños personales causados por negligencia, ni cualquier otra responsabilidad que la legislación aplicable no permita excluir o limitar.</p>
+
+        <h2>10. Suscripciones y funcionalidades premium</h2>
+        <p>Actualmente el Servicio es gratuito con límites de uso (escaneos y contribuciones diarias). En el futuro, Nezly podrá ofrecer suscripciones de pago que desbloqueen funcionalidades adicionales. Cuando esto ocurra, se publicarán unos Términos de Suscripción específicos que complementarán los presentes Términos, y se te informará antes de cualquier cobro.</p>
+
+        <h2>11. Modificación de los Términos</h2>
+        <p>Nezly se reserva el derecho de modificar los presentes Términos en cualquier momento. Cuando se realicen cambios sustanciales, te informaremos a través de la App o por correo electrónico con una antelación razonable. El uso continuado del Servicio tras la entrada en vigor de los Términos modificados constituirá aceptación de los mismos. Si no estás de acuerdo con los cambios, deberás dejar de usar el Servicio y, si lo deseas, solicitar el borrado de tu cuenta.</p>
+
+        <h2>12. Legislación aplicable y jurisdicción</h2>
+        <p>Los presentes Términos se rigen por la legislación española, sin perjuicio de las normas imperativas de protección del consumidor del país de residencia del usuario que resulten de aplicación conforme al Reglamento (CE) 593/2008 (Roma I).</p>
+        <p>Para cualquier controversia derivada de los presentes Términos serán competentes los Juzgados y Tribunales de Madrid (España), sin perjuicio del derecho del consumidor a acudir a los tribunales de su domicilio conforme al artículo 52.2 de la Ley de Enjuiciamiento Civil y al Reglamento (UE) 1215/2012 (Bruselas I bis).</p>
+        <p>Asimismo, puedes acudir a la plataforma de resolución de litigios en línea de la Unión Europea, disponible en <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>.</p>
+
+        <h2>13. Contacto</h2>
+        <p>Para cualquier consulta relacionada con los presentes Términos:</p>
+        <p><strong>Correo electrónico:</strong> <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>Los datos identificativos completos del titular del Servicio se encuentran en el <a href="aviso-legal.html">Aviso Legal</a>.</p>
+    </div>
+
+    <div class="legal-content" data-lang="en">
+        <h1>Terms and Conditions of Use</h1>
+        <p class="last-updated">Last updated: August 2026</p>
+
+        <h2>1. Ownership and identification of the provider</h2>
+        <p>The Nezly Service is provided by the owner identified in the <a href="aviso-legal.html">Legal Notice</a>, which contains the information required by article 10 of Spanish Law 34/2002, of 11 July, on Information Society Services and Electronic Commerce (LSSI-CE).</p>
+        <p>Contact email: <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>These Terms and Conditions of Use (the "Terms") govern access to and use of the Nezly application (the "App") and the website <a href="https://nezly.app">nezly.app</a> (the "Website"), jointly referred to as the "Service".</p>
+
+        <h2>2. Acceptance of the Terms</h2>
+        <p>Accessing and using the Service implies full and unreserved acceptance of these Terms. If you disagree with any of their provisions, you must refrain from using the Service.</p>
+        <p>These Terms, together with the Privacy Policy, the Legal Notice and, where applicable, the Subscription Terms, constitute the entire agreement between you and Nezly regarding use of the Service.</p>
+
+        <h2>3. Age requirements</h2>
+        <p>You must be at least <strong>14 years old</strong> to use Nezly. If you are under 14, you must not create an account or use the Service. Under article 7 of Spanish Organic Law 3/2018 (LOPDGDD), processing personal data of children under 14 requires parental or guardian consent.</p>
+        <p>By creating an account, you represent and warrant that you are at least 14 years old. Nezly reserves the right to remove accounts if it has well-founded knowledge that the account holder is under that age.</p>
+
+        <h2>4. User account and authentication</h2>
+        <h3>4.1. Registration</h3>
+        <p>Registration requires a valid email address and choosing a username. The email address is unique in our system and used exclusively for internal account management; it is never shown to other users.</p>
+        <h3>4.2. Passkeys</h3>
+        <p>Nezly uses Passkeys (WebAuthn/FIDO2) as its authentication method. The passkey is stored in your Apple device's iCloud Keychain. Nezly only stores the corresponding public key. You are responsible for keeping your account and device secure.</p>
+        <h3>4.3. Account deletion</h3>
+        <p>You may request deletion of your account at any time from within the App or by writing to <a href="mailto:legal@nezly.app">legal@nezly.app</a>. The effects of deletion are detailed in section 7 of the Privacy Policy.</p>
+
+        <h2>5. Acceptable use of the Service</h2>
+        <p>You agree to use the Service diligently, in accordance with applicable law, these Terms, and good faith. In particular, you agree not to:</p>
+        <ul>
+            <li>Post unlawful, defamatory, discriminatory, threatening, harassing, obscene content, or content that infringes third-party rights (including intellectual and industrial property, privacy, honor, and image rights).</li>
+            <li>Impersonate another person or entity.</li>
+            <li>Manipulate ratings, reviews, votes, or any community mechanism of the Service.</li>
+            <li>Use the Service to send unsolicited advertising content (spam).</li>
+            <li>Introduce viruses, malware, or any harmful code.</li>
+            <li>Attempt to access restricted areas of the Service or other users' accounts.</li>
+            <li>Circumvent, disable, or interfere with the Service's security measures or technical features.</li>
+        </ul>
+
+        <h2>6. User-generated content (UGC)</h2>
+        <h3>6.1. Types of content</h3>
+        <p>When using the Service you may generate different types of content:</p>
+        <ul>
+            <li><strong>Perfume reviews</strong>: free text, numeric ratings, occasion, and season. Visible to all users.</li>
+            <li><strong>Catalog contributions</strong>: name, brand, concentration, year, and photo of an unlisted perfume. Visible to all users once approved.</li>
+            <li><strong>Diary notes and collection data</strong>: private, visible only to you.</li>
+        </ul>
+        <h3>6.2. License you grant to Nezly</h3>
+        <p>By posting content visible to other users (reviews and approved contributions), you grant Nezly a non-exclusive, worldwide, royalty-free, sublicensable (only to technical service providers necessary to operate the Service) and transferable license to reproduce, distribute, publicly communicate, adapt, and transform such content, solely for the purpose of operating, maintaining, improving, and promoting the Service.</p>
+        <p>This license remains in effect while your content stays on the Service. If you delete your content or your account, the license ends, except for anonymized reviews retained under section 7 of the Privacy Policy.</p>
+        <h3>6.3. Representations and warranties about your content</h3>
+        <p>By posting content, you represent and warrant that:</p>
+        <ul>
+            <li>You own all necessary rights to that content, or have sufficient authorization to post it.</li>
+            <li>The content does not infringe third parties' intellectual or industrial property, privacy, honor, or image rights.</li>
+            <li>Product photos you upload as a contribution are your own originals.</li>
+            <li>The content is not unlawful, defamatory, discriminatory, threatening, obscene, or contrary to morality and public order.</li>
+        </ul>
+        <p>You are solely responsible for the content you post. Nezly assumes no liability for breach of these representations.</p>
+        <h3>6.4. Content moderation</h3>
+        <p>Nezly implements the following moderation mechanisms:</p>
+        <ul>
+            <li><strong>Automatic filtering</strong>: reviews go through a content filter that rejects text containing prohibited terms.</li>
+            <li><strong>Human review of contributions</strong>: new perfumes proposed by users undergo human review before becoming visible in the catalog.</li>
+            <li><strong>Report mechanism</strong>: any user can report a review they consider offensive, spam, misleading, or otherwise objectionable. Nezly will review reports and take appropriate action, which may include hiding or removing the content.</li>
+            <li><strong>User blocking</strong>: you can block other users to stop seeing their content.</li>
+            <li><strong>Discretionary removal</strong>: Nezly reserves the right to remove, hide, or modify any user-generated content, without prior notice, when it considers that it violates these Terms, applicable law, third-party rights, or the Service's image and reputation.</li>
+        </ul>
+        <p>In accordance with article 7 of Regulation (EU) 2022/2065 (Digital Services Act), voluntary content review carried out by Nezly does not constitute a general monitoring obligation and does not deprive Nezly of the liability exemptions set out in articles 4 to 6 of that Regulation.</p>
+        <h3>6.5. Notice and action procedure</h3>
+        <p>If you are a rights holder and believe that content on the Service infringes your intellectual property, industrial property, privacy, or other legitimate rights, you can notify us by emailing <a href="mailto:legal@nezly.app">legal@nezly.app</a> with the following information:</p>
+        <ul>
+            <li>Identification of the allegedly infringing content and its location within the Service.</li>
+            <li>Identification of the right infringed and documentation evidencing your ownership or standing.</li>
+            <li>Your contact details.</li>
+            <li>A statement that the information provided is accurate and that you are acting in good faith.</li>
+        </ul>
+        <p>Nezly will examine the notification and, if appropriate, remove or block access to the content in accordance with articles 11 and 16 of Law 34/2002 (LSSI-CE) and article 16 of Regulation (EU) 2022/2065 (DSA).</p>
+
+        <h2>7. Intellectual and industrial property</h2>
+        <h3>7.1. Nezly's rights</h3>
+        <p>All intellectual property rights over the design, source code, structure, selection, and arrangement of the Service's content, as well as trademarks, trade names, and distinctive signs, belong to Nezly or, where applicable, its licensors. Nezly's perfume database is protected by the database maker's sui generis right under articles 133 to 137 of Royal Legislative Decree 1/1996 (TRLPI) and Directive 96/9/EC.</p>
+        <h3>7.2. Prohibition on extraction and reuse</h3>
+        <p>Without Nezly's prior written authorization, the following are expressly prohibited:</p>
+        <ul>
+            <li>Reproduction, distribution, public communication, transformation, or any form of exploitation of the Service's content, except for personal and private use.</li>
+            <li>Extraction and/or reuse of the whole or a substantial part of the database's content, under the terms of article 133 of the TRLPI.</li>
+            <li>Automated access to the Service via bots, scrapers, crawlers, headless browsers, or any other programmatic means (except public search engines that comply with robots.txt and limit themselves to indexing pages to link to the Service).</li>
+            <li>Using content from the Service to develop, train, fine-tune, evaluate, or feed any artificial intelligence system, language model, or machine learning technology.</li>
+            <li>Creating databases, indexes, datasets, or similar resources from the Service's content.</li>
+            <li>Reverse engineering the software, database, or endpoints of the Service.</li>
+        </ul>
+        <h3>7.3. Third-party trademarks</h3>
+        <p>The trademarks, trade names, and logos of perfumes shown in Nezly belong to their respective owners and are used exclusively for identification purposes under article 37 of Spanish Trademark Law 17/2001. Nezly has no commercial relationship, sponsorship, or affiliation with those brands unless expressly stated. Prices shown come from third-party retailers and may include affiliate links.</p>
+
+        <h2>8. Affiliate links</h2>
+        <p>Nezly displays perfume prices from partner stores through affiliate programs. Tapping a purchase link redirects you to the corresponding external store. The purchase transaction takes place between you and the store; Nezly is not a party to that transaction, does not transfer ownership of any product, and does not guarantee the accuracy of prices, availability, or sale conditions shown.</p>
+        <p>Nezly may receive a commission for purchases made through these links, at no additional cost to you. This information is provided in accordance with article 20 of Law 34/2002 (LSSI-CE) and Directive 2005/29/EC on unfair commercial practices.</p>
+
+        <h2>9. Limitation of liability</h2>
+        <p>To the extent permitted by applicable law:</p>
+        <ul>
+            <li>The Service is provided "as is" and "as available", without warranties of any kind, express or implied.</li>
+            <li>Nezly does not guarantee continuous, uninterrupted availability of the Service, the absence of errors, or the accuracy of catalog information.</li>
+            <li>Nezly is not responsible for the content, products, services, or privacy policies of external partner stores linked from the Service.</li>
+            <li>Nezly is not responsible for user-generated content, without prejudice to its obligation to act diligently under articles 14 to 16 of Law 34/2002 (LSSI-CE) and articles 4 to 6 of Regulation (EU) 2022/2065 (DSA) once it has actual knowledge of unlawful content.</li>
+            <li>In no event shall Nezly's total liability to you exceed the amount you have paid to Nezly in the 12 months prior to the event giving rise to liability (or €50, if you have made no payment).</li>
+        </ul>
+        <p>Nothing in these Terms excludes or limits Nezly's liability for willful misconduct, gross negligence, personal injury caused by negligence, or any other liability that applicable law does not permit to be excluded or limited.</p>
+
+        <h2>10. Subscriptions and premium features</h2>
+        <p>The Service is currently free, with usage limits (daily scans and contributions). In the future, Nezly may offer paid subscriptions unlocking additional features. When this happens, specific Subscription Terms will be published to complement these Terms, and you will be informed before any charge.</p>
+
+        <h2>11. Modification of the Terms</h2>
+        <p>Nezly reserves the right to modify these Terms at any time. When we make substantial changes, we will inform you through the App or by email with reasonable notice. Continued use of the Service after the modified Terms take effect constitutes acceptance of them. If you disagree with the changes, you must stop using the Service and, if you wish, request deletion of your account.</p>
+
+        <h2>12. Applicable law and jurisdiction</h2>
+        <p>These Terms are governed by Spanish law, without prejudice to the mandatory consumer-protection rules of the user's country of residence that may apply under Regulation (EC) 593/2008 (Rome I).</p>
+        <p>For any dispute arising from these Terms, the Courts of Madrid (Spain) shall have jurisdiction, without prejudice to the consumer's right to bring proceedings before the courts of their own domicile under article 52.2 of the Spanish Civil Procedure Act and Regulation (EU) 1215/2012 (Brussels I bis).</p>
+        <p>You may also refer disputes to the European Union's online dispute resolution platform, available at <a href="https://ec.europa.eu/consumers/odr" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr</a>.</p>
+
+        <h2>13. Contact</h2>
+        <p>For any query related to these Terms:</p>
+        <p><strong>Email:</strong> <a href="mailto:legal@nezly.app">legal@nezly.app</a></p>
+        <p>The full identifying details of the Service owner can be found in the <a href="aviso-legal.html">Legal Notice</a>.</p>
+    </div>
 </div>
 
 <!-- FOOTER -->
 <footer>
     <div class="footer-content">
         <div class="footer-brand">
-            Fragl<span>y</span>
+            <div class="footer-brand-name">
+                <img src="assets/nezly-icon-256.png" alt="">
+                <span class="footer-brand-word">Nezl<span>y</span></span>
+            </div>
             <p data-i18n="footer_tagline">Perfumeria inteligente</p>
         </div>
         <ul class="footer-links">
             <li><a href="#" onclick="showPage('privacy')" data-i18n="footer_privacy">Privacidad</a></li>
             <li><a href="#" onclick="showPage('terms')" data-i18n="footer_terms">Términos de uso</a></li>
-            <li><a href="mailto:hello@fragly.app" data-i18n="footer_contact">Contacto</a></li>
+            <li><a href="aviso-legal.html" data-i18n="footer_legal">Aviso legal</a></li>
+            <li><a href="mailto:legal@nezly.app" data-i18n="footer_contact">Contacto</a></li>
         </ul>
     </div>
-    <div class="footer-copy">&copy; 2026 Fragly. All rights reserved. | Awin Partner</div>
+    <div class="footer-copy">&copy; 2026 Nezly. All rights reserved. | Awin Partner</div>
 </footer>
 
 <script>
@@ -582,146 +636,68 @@ const translations = {
         nav_about: "Acerca de",
         hero_badge: "Disponible pronto en App Store",
         hero_title: 'Apunta al frasco. <em>Descubre</em> el perfume.',
-        hero_subtitle: "Mas de 100.000 fragancias. Reconocimiento visual, precios en tiendas autorizadas y una comunidad de amantes del perfume.",
+        hero_subtitle: "Mas de 100.000 fragancias. Reconocimiento visual y una comunidad de amantes del perfume.",
         hero_cta: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> Pronto en App Store',
         features_label: "Funcionalidades",
         features_title: "Todo lo que necesitas en una app",
         f1_title: "Reconocimiento visual",
         f1_desc: "Apunta tu camara a cualquier botella de perfume y obtendras toda la informacion al instante.",
         f2_title: "Donde comprarlo",
-        f2_desc: "Ve que tiendas autorizadas cerca de ti tienen disponible el perfume que buscas, con precio y distancia.",
+        f2_desc: "Ve que tiendas autorizadas cerca de ti tienen disponible el perfume que buscas.",
         f3_title: "Tu coleccion personal",
         f3_desc: "Organiza tu coleccion, lleva un diario olfativo y comparte tus descubrimientos.",
         f4_title: "Aprende jugando",
         f4_desc: "Quiz diario, retos semanales, insignias y niveles para aprender sobre perfumeria de forma divertida.",
-        f5_title: "Alertas de precio",
-        f5_desc: "Activa una alerta y te aviso cuando un perfume que quieres baje de precio en alguna tienda autorizada.",
         f6_title: "+100.000 fragancias",
         f6_desc: "La base de datos mas completa con notas olfativas, reseñas de la comunidad y puntuaciones detalladas.",
-        about_label: "Acerca de Fragly",
+        about_label: "Acerca de Nezly",
         about_title: "Perfumeria para todos",
-        about_p1: "Fragly nace de una idea simple: descubrir perfumes deberia ser tan facil como apuntar con el movil. Uso reconocimiento visual, una base de datos de mas de 100.000 fragancias y precios en tiempo real de tiendas autorizadas para que tomes la mejor decision antes de comprar.",
-        about_p2: "Estoy construyendo Fragly en abierto, desde la arquitectura tecnica hasta el modelo de negocio. Si te interesa la perfumeria, la tecnologia o ambas, unete a la comunidad y ayudame a crear la app que el mundo de las fragancias se merece.",
+        about_p1: "Nezly nace de una idea simple: descubrir perfumes deberia ser tan facil como apuntar con el movil. Uso reconocimiento visual y una base de datos de mas de 100.000 fragancias para que tomes la mejor decision antes de comprar.",
+        about_p2: "Estoy construyendo Nezly en abierto, desde la arquitectura tecnica hasta el modelo de negocio. Si te interesa la perfumeria, la tecnologia o ambas, unete a la comunidad y ayudame a crear la app que el mundo de las fragancias se merece.",
         perfumeria_label: "Para profesionales",
         perfumeria_title: "&iquest;Tienes una perfumeria?",
-        perfumeria_desc: "Quiero trabajar contigo. Fragly conecta a miles de usuarios con perfumerias autorizadas. Si tienes un punto de venta y quieres aparecer en mi app, hablemos.",
+        perfumeria_desc: "Quiero trabajar contigo. Nezly conecta a miles de usuarios con perfumerias autorizadas. Si tienes un punto de venta y quieres aparecer en mi app, hablemos.",
         perfumeria_cta: "Escríbenos",
         footer_tagline: "Perfumeria inteligente",
         footer_privacy: "Privacidad",
         footer_terms: "Términos de uso",
+        footer_legal: "Aviso legal",
         footer_contact: "Contacto",
-        back_home: "Volver al inicio",
-        privacy_title: "Politica de Privacidad",
-        privacy_updated: "Última actualización: 10 de marzo de 2026",
-        priv_1_h: "1. Informacion que recopilo",
-        priv_1_p: "Fragly recopila la minima informacion necesaria para ofrecer el servicio:",
-        priv_1_li1: "<strong>Datos de cuenta:</strong> Identificador anonimo de Sign in with Apple. No almaceno tu email real ni contrasenas.",
-        priv_1_li2: "<strong>Datos de uso:</strong> Tu coleccion de perfumes, reseñas, puntuaciones de quiz y preferencias de la app.",
-        priv_1_li3: "<strong>Imagenes de camara:</strong> Las imagenes capturadas para reconocimiento visual se procesan en el dispositivo y no se envian a mis servidores.",
-        priv_2_h: "2. Como uso tu informacion",
-        priv_2_p: "Uso tus datos exclusivamente para:",
-        priv_2_li1: "Ofrecer y mejorar las funcionalidades de la app",
-        priv_2_li2: "Sincronizar tu coleccion y progreso entre dispositivos",
-        priv_2_li3: "Enviarte alertas de precio que hayas configurado",
-        priv_3_h: "3. Enlaces de afiliado",
-        priv_3_p: "Fragly incluye enlaces a tiendas autorizadas a traves de programas de afiliados. Cuando compras a traves de estos enlaces, puedo recibir una comision sin coste adicional para ti.",
-        priv_4_h: "4. Comparticion de datos",
-        priv_4_p: "No vendo, alquilo ni comparto tu informacion personal con terceros.",
-        priv_5_h: "5. Almacenamiento y seguridad",
-        priv_5_p: "Tus datos se almacenan de forma segura con cifrado en transito y en reposo.",
-        priv_6_h: "6. Tus derechos",
-        priv_6_p: 'Puedes solicitar la eliminacion de tu cuenta y todos los datos asociados en cualquier momento desde los ajustes de la app o contactandome en <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>.',
-        priv_7_h: "7. Contacto",
-        priv_7_p: 'Para cualquier consulta sobre privacidad: <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>',
-        terms_title: "Términos de Uso",
-        terms_updated: "Última actualización: 10 de marzo de 2026",
-        terms_1_h: "1. Aceptación de los términos",
-        terms_1_p: "Al usar Fragly, aceptas estos términos de uso. Si no estas de acuerdo, no utilices la app.",
-        terms_2_h: "2. Descripción del servicio",
-        terms_2_p: "Fragly es una plataforma de descubrimiento de fragancias que ofrece reconocimiento visual de perfumes, consulta de disponibilidad y precios en tiendas autorizadas, gestión de colecciones personales y contenido educativo sobre perfumería.",
-        terms_3_h: "3. Precios y enlaces de compra",
-        terms_3_p: "Los precios mostrados en Fragly provienen de tiendas autorizadas y pueden variar. Fragly no vende productos directamente. Las compras se realizan en las tiendas correspondientes bajo sus propios términos y condiciones.",
-        terms_4_h: "4. Contenido del usuario",
-        terms_4_p: "Eres responsable del contenido que publiques (reseñas, puntuaciones). Me reservo el derecho de moderar contenido que sea ofensivo, spam o viole los derechos de otros.",
-        terms_5_h: "5. Propiedad intelectual",
-        terms_5_p: "Las marcas de perfumes, imagenes de productos y nombres comerciales pertenecen a sus respectivos propietarios. Fragly los utiliza con fines informativos y de descubrimiento.",
-        terms_6_h: "6. Limitación de responsabilidad",
-        terms_6_p: 'Fragly se ofrece "tal cual". No garantizo la exactitud de los precios en todo momento ni la disponibilidad continua del servicio.',
-        terms_7_h: "7. Contacto",
-        terms_7_p: 'Para consultas sobre estos términos: <a href="mailto:legal@fragly.app">legal@fragly.app</a>'
+        back_home: "Volver al inicio"
     },
     en: {
         nav_features: "Features",
         nav_about: "About",
         hero_badge: "Coming soon to the App Store",
         hero_title: 'Point at the bottle. <em>Discover</em> the perfume.',
-        hero_subtitle: "Over 100,000 fragrances. Visual recognition, prices from authorized retailers, and a community of perfume lovers.",
+        hero_subtitle: "Over 100,000 fragrances. Visual recognition and a community of perfume lovers.",
         hero_cta: '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg> Coming to App Store',
         features_label: "Features",
         features_title: "Everything you need in one app",
         f1_title: "Visual recognition",
         f1_desc: "Point your camera at any perfume bottle and get all the information instantly.",
         f2_title: "Where to buy it",
-        f2_desc: "See which authorized stores near you have the perfume you are looking for, with price and distance.",
+        f2_desc: "See which authorized stores near you have the perfume you are looking for.",
         f3_title: "Your personal collection",
         f3_desc: "Organize your collection, keep a scent diary, and share your discoveries.",
         f4_title: "Learn by playing",
         f4_desc: "Daily quizzes, weekly challenges, badges, and levels to learn about perfumery in a fun way.",
-        f5_title: "Price alerts",
-        f5_desc: "Set an alert and I will notify you when a perfume you want drops in price at any authorized store.",
         f6_title: "100,000+ fragrances",
         f6_desc: "The most comprehensive database with scent notes, community reviews, and detailed ratings.",
-        about_label: "About Fragly",
+        about_label: "About Nezly",
         about_title: "Perfumery for everyone",
-        about_p1: "Fragly was born from a simple idea: discovering perfumes should be as easy as pointing your phone. I use visual recognition, a database of over 100,000 fragrances, and real-time prices from authorized retailers so you can make the best decision before buying.",
-        about_p2: "I am building Fragly in the open, from the technical architecture to the business model. If you are into perfumery, technology, or both, join the community and help me create the app the fragrance world deserves.",
+        about_p1: "Nezly was born from a simple idea: discovering perfumes should be as easy as pointing your phone. I use visual recognition and a database of over 100,000 fragrances so you can make the best decision before buying.",
+        about_p2: "I am building Nezly in the open, from the technical architecture to the business model. If you are into perfumery, technology, or both, join the community and help me create the app the fragrance world deserves.",
         perfumeria_label: "For professionals",
         perfumeria_title: "Own a perfumery?",
-        perfumeria_desc: "I want to work with you. Fragly connects thousands of users with authorized perfumeries. If you have a retail location and want to appear in my app, let's talk.",
+        perfumeria_desc: "I want to work with you. Nezly connects thousands of users with authorized perfumeries. If you have a retail location and want to appear in my app, let's talk.",
         perfumeria_cta: "Get in touch",
         footer_tagline: "Smart perfumery",
         footer_privacy: "Privacy",
         footer_terms: "Terms of Use",
+        footer_legal: "Legal notice",
         footer_contact: "Contact",
-        back_home: "Back to home",
-        privacy_title: "Privacy Policy",
-        privacy_updated: "Last updated: March 10, 2026",
-        priv_1_h: "1. Information I collect",
-        priv_1_p: "Fragly collects the minimum information necessary to provide the service:",
-        priv_1_li1: "<strong>Account data:</strong> Anonymous identifier from Sign in with Apple. I do not store your real email or passwords.",
-        priv_1_li2: "<strong>Usage data:</strong> Your perfume collection, reviews, quiz scores, and app preferences.",
-        priv_1_li3: "<strong>Camera images:</strong> Images captured for visual recognition are processed on-device and are not sent to my servers.",
-        priv_2_h: "2. How I use your information",
-        priv_2_p: "I use your data exclusively to:",
-        priv_2_li1: "Provide and improve app features",
-        priv_2_li2: "Sync your collection and progress across devices",
-        priv_2_li3: "Send you price alerts you have configured",
-        priv_3_h: "3. Affiliate links",
-        priv_3_p: "Fragly includes links to authorized retailers through affiliate programs. When you purchase through these links, I may receive a commission at no additional cost to you.",
-        priv_4_h: "4. Data sharing",
-        priv_4_p: "I do not sell, rent, or share your personal information with third parties.",
-        priv_5_h: "5. Storage and security",
-        priv_5_p: "Your data is stored securely with encryption in transit and at rest.",
-        priv_6_h: "6. Your rights",
-        priv_6_p: 'You can request deletion of your account and all associated data at any time from the app settings or by contacting me at <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>.',
-        priv_7_h: "7. Contact",
-        priv_7_p: 'For any privacy inquiries: <a href="mailto:privacy@fragly.app">privacy@fragly.app</a>',
-        terms_title: "Terms of Use",
-        terms_updated: "Last updated: March 10, 2026",
-        terms_1_h: "1. Acceptance of terms",
-        terms_1_p: "By using Fragly, you accept these terms of use. If you disagree, do not use the app.",
-        terms_2_h: "2. Service description",
-        terms_2_p: "Fragly is a fragrance discovery platform offering visual perfume recognition, availability and price lookup at authorized stores, personal collection management, and educational content about perfumery.",
-        terms_3_h: "3. Prices and purchase links",
-        terms_3_p: "Prices shown in Fragly come from authorized retailers and may vary. Fragly does not sell products directly. Purchases are made at the respective stores under their own terms and conditions.",
-        terms_4_h: "4. User content",
-        terms_4_p: "You are responsible for content you publish (reviews, ratings). I reserve the right to moderate content that is offensive, spam, or violates the rights of others.",
-        terms_5_h: "5. Intellectual property",
-        terms_5_p: "Perfume brands, product images, and trade names belong to their respective owners. Fragly uses them for informational and discovery purposes.",
-        terms_6_h: "6. Limitation of liability",
-        terms_6_p: 'Fragly is provided "as is". I do not guarantee the accuracy of prices at all times or continuous availability of the service.',
-        terms_7_h: "7. Contact",
-        terms_7_p: 'For inquiries about these terms: <a href="mailto:legal@fragly.app">legal@fragly.app</a>'
+        back_home: "Back to home"
     }
 };
 
@@ -732,6 +708,7 @@ function toggleLang() {
     document.getElementById('langBtn').textContent = currentLang === 'es' ? 'EN' : 'ES';
     document.documentElement.lang = currentLang;
     applyTranslations();
+    applyLegalLang();
 }
 
 function applyTranslations() {
@@ -742,12 +719,44 @@ function applyTranslations() {
     });
 }
 
-function showPage(page) {
+/**
+ * Los textos legales (Privacidad, Términos) son demasiado extensos para el
+ * sistema de claves data-i18n — viven como dos bloques completos por página
+ * (data-lang="es" / data-lang="en") que se alternan aquí, en vez de fragmentar
+ * cada párrafo en una clave de traducción individual.
+ */
+function applyLegalLang() {
+    document.querySelectorAll('.legal-content').forEach(el => {
+        el.classList.toggle('active', el.getAttribute('data-lang') === currentLang);
+    });
+}
+
+const PAGES = ['home', 'privacy', 'terms'];
+
+function showPage(page, pushHash = true) {
+    if (!PAGES.includes(page)) page = 'home';
     document.getElementById('page-home').style.display = page === 'home' ? 'block' : 'none';
     document.getElementById('page-privacy').className = page === 'privacy' ? 'legal active' : 'legal';
     document.getElementById('page-terms').className = page === 'terms' ? 'legal active' : 'legal';
     window.scrollTo(0, 0);
+    if (pushHash) {
+        const hash = page === 'home' ? '#' : '#' + page;
+        if (location.hash !== hash) history.pushState(null, '', hash);
+    }
 }
+
+// Routing por hash: permite enlazar directamente a #privacy o #terms
+// (necesario para declarar una URL de Privacy Policy real en App Store Connect).
+function routeFromHash() {
+    const page = location.hash.replace('#', '') || 'home';
+    showPage(page, false);
+}
+
+window.addEventListener('popstate', routeFromHash);
+document.addEventListener('DOMContentLoaded', () => {
+    applyLegalLang();
+    routeFromHash();
+});
 </script>
 
 </body>
