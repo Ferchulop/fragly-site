@@ -19,7 +19,7 @@
 
 <!-- NAVIGATION -->
 <nav>
-    <a href="#" class="logo" onclick="showPage('home')"><img src="assets/nezly-icon-256.png" alt=""><span class="logo-word">Nezl<span>y</span></span></a>
+    <a href="#" class="logo" onclick="showPage('home'); return false;"><img src="assets/nezly-icon-256.png" alt=""><span class="logo-word">Nezl<span>y</span></span></a>
     <ul class="nav-links">
         <li><a href="#features" data-i18n="nav_features">Funcionalidades</a></li>
         <li><a href="#about" data-i18n="nav_about">Acerca de</a></li>
@@ -94,7 +94,7 @@
 
 <!-- PRIVACY POLICY PAGE -->
 <div id="page-privacy" class="legal">
-    <a href="#" class="back-link" onclick="showPage('home')">← <span data-i18n="back_home">Volver al inicio</span></a>
+    <a href="#" class="back-link" onclick="showPage('home'); return false;">← <span data-i18n="back_home">Volver al inicio</span></a>
 
     <div class="legal-content" data-lang="es">
         <h1>Política de Privacidad</h1>
@@ -355,7 +355,7 @@
 
 <!-- TERMS OF SERVICE PAGE -->
 <div id="page-terms" class="legal">
-    <a href="#" class="back-link" onclick="showPage('home')">← <span data-i18n="back_home">Volver al inicio</span></a>
+    <a href="#" class="back-link" onclick="showPage('home'); return false;">← <span data-i18n="back_home">Volver al inicio</span></a>
 
     <div class="legal-content" data-lang="es">
         <h1>Términos y Condiciones de Uso</h1>
@@ -619,8 +619,8 @@
             <p data-i18n="footer_tagline">Perfumeria inteligente</p>
         </div>
         <ul class="footer-links">
-            <li><a href="#" onclick="showPage('privacy')" data-i18n="footer_privacy">Privacidad</a></li>
-            <li><a href="#" onclick="showPage('terms')" data-i18n="footer_terms">Términos de uso</a></li>
+            <li><a href="#" onclick="showPage('privacy'); return false;" data-i18n="footer_privacy">Privacidad</a></li>
+            <li><a href="#" onclick="showPage('terms'); return false;" data-i18n="footer_terms">Términos de uso</a></li>
             <li><a href="aviso-legal.html" data-i18n="footer_legal">Aviso legal</a></li>
             <li><a href="mailto:legal@nezly.app" data-i18n="footer_contact">Contacto</a></li>
         </ul>
